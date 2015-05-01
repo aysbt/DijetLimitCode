@@ -39,6 +39,7 @@ xs_exp_limits_2sigma_up = array('d')
 
 
 syst = True
+#syst = False
 
 mass_start = 1200
 mass_step = 100
@@ -155,7 +156,7 @@ graph_exp_2sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_2sigma)
 graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("gg resonance mass [GeV]")
 graph_exp_2sigma.GetYaxis().SetTitle("#sigma#timesBR(X#rightarrowjj)#timesA [pb]")
-graph_exp_2sigma.GetYaxis().SetRangeUser(1e-03,2e+02)
+graph_exp_2sigma.GetYaxis().SetRangeUser(1e-03,1e+03)
 #graph_exp_2sigma.GetXaxis().SetNdivisions(1005)
 
 graph_exp_1sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_1sigma)
@@ -163,7 +164,7 @@ graph_exp_1sigma.SetFillColor(kGreen+1)
 
 graph_exp = TGraph(len(masses),masses,xs_exp_limits)
 #graph_exp.SetMarkerStyle(24)
-graph_exp.SetLineWidth(2)
+graph_exp.SetLineWidth(3)
 graph_exp.SetLineStyle(2)
 graph_exp.SetLineColor(4)
 
@@ -182,15 +183,17 @@ graph_exp_1sigma.Draw("F")
 graph_exp.Draw("L")
 graph_obs.Draw("LP")
 
-legend = TLegend(.50,.55,.80,.68)
+legend = TLegend(.50,.55,.80,.73)
 legend.SetBorderSize(0)
 legend.SetFillColor(0)
 legend.SetFillStyle(0)
 legend.SetTextFont(42)
 legend.SetTextSize(0.03)
-legend.SetHeader('95% CL Upper Limits' + ('' if syst else ' (stat. only)'))
+legend.SetHeader('95% CL upper limits' + ('' if syst else ' (stat. only)'))
 legend.AddEntry(graph_obs,"Observed (pseudo-data)","lp")
 legend.AddEntry(graph_exp,"Expected","lp")
+legend.AddEntry(graph_exp_1sigma,"#pm 1#sigma","F")
+legend.AddEntry(graph_exp_2sigma,"#pm 2#sigma","F")
 legend.Draw()
 
 #l1 = TLatex()
