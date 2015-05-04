@@ -152,6 +152,14 @@ if syst:
 ##
 ########################################################
 
+massesS8 = array('d', [1000.0,1100.0,1200.0,1300.0,1400.0,1500.0,1600.0,1700.0,1800.0,1900.0,2000.0,2100.0,2200.0,2300.0,2400.0,2500.0,2600.0,2700.0,2800.0,2900.0,3000.0,3100.0,3200.0,3300.0,3400.0,3500.0,3600.0,3700.0,3800.0,3900.0,4000.0,4100.0,4200.0,4300.0,4400.0,4500.0,4600.0,4700.0,4800.0,4900.0,5000.0,5100.0,5200.0,5300.0,5400.0,5500.0,5600.0,5700.0,5800.0,5900.0,6000.0])
+xsS8 = array('d', [532.35, 370.975, 264.095, 190.895, 139.625, 103.595, 77.15, 58.325, 44.1165, 33.723, 25.9525, 20.046, 15.5825, 12.1105, 9.512, 7.451, 5.8895, 4.6417, 3.68625, 2.925, 2.31955, 1.85035, 1.47765, 1.1785, 0.9434, 0.7571, 0.60665, 0.48611, 0.391275, 0.314, 0.252285, 0.202765, 0.163035, 0.13115, 0.10562, 0.08509, 0.06827, 0.05478, 0.043966, 0.0353215, 0.0283855, 0.022724, 0.018199, 0.0145755, 0.0116755, 0.009314, 0.007439, 0.0059315, 0.00471815, 0.00374505, 0.0029777])
+
+graph_xsS8 = TGraph(len(massesS8),massesS8,xsS8)
+graph_xsS8.SetLineWidth(3)
+graph_xsS8.SetLineStyle(8)
+graph_xsS8.SetLineColor(6)
+
 graph_exp_2sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_2sigma)
 graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("gg resonance mass [GeV]")
@@ -182,6 +190,7 @@ graph_exp_2sigma.Draw("AF")
 graph_exp_1sigma.Draw("F")
 graph_exp.Draw("L")
 graph_obs.Draw("LP")
+graph_xsS8.Draw("L")
 
 legend = TLegend(.50,.55,.80,.73)
 legend.SetBorderSize(0)
@@ -195,6 +204,15 @@ legend.AddEntry(graph_exp,"Expected","lp")
 legend.AddEntry(graph_exp_1sigma,"#pm 1#sigma","F")
 legend.AddEntry(graph_exp_2sigma,"#pm 2#sigma","F")
 legend.Draw()
+
+legendTh = TLegend(.50,.80,.80,.84)
+legendTh.SetBorderSize(0)
+legendTh.SetFillColor(0)
+legendTh.SetFillStyle(0)
+legendTh.SetTextFont(42)
+legendTh.SetTextSize(0.03)
+legendTh.AddEntry(graph_xsS8,"S8","l")
+legendTh.Draw()
 
 #l1 = TLatex()
 #l1.SetTextAlign(12)
