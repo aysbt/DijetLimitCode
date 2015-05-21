@@ -26,11 +26,11 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 // number of pseudoexperiments (when greater than 0, expected limit with +/- 1 and 2 sigma bands is calculated)
 // number of pseudoexperiments
-const int NPES=200; // 200
+const int NPES=0; // 200
 
 // number of samples of nuisance parameters for Bayesian MC integration (when greater than 0, systematic uncertanties are included in the limit calculation)
 // number of samples of nuisance parameters for Bayesian MC integration
-const int NSAMPLES=5000; // 5000  (larger value is better but it also slows down the code. 5000 is a reasonable compromise between the speed and precision)
+const int NSAMPLES=0; // 5000  (larger value is better but it also slows down the code. 5000 is a reasonable compromise between the speed and precision)
 
 // use a B-only fit for the background systematics
 const bool useBonlyFit = 1;
@@ -93,6 +93,13 @@ string LFRS = "gg";
 
 TH1D* HISTCDF=0; // signal CDF
 
+////////////////////////////////////////////////////////////////////////////////
+// printout function
+////////////////////////////////////////////////////////////////////////////////
+void printSignalXS(const Fitter & fit)
+{
+  cout << "Fitted signal xs: " << fit.getParameter(POIINDEX) << " +/- " << fit.getParError(POIINDEX) << endl;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // function integral
@@ -206,12 +213,12 @@ int main(int argc, char* argv[])
 //string filename2 = "/uscms_data/d3/gurpinar/work/DijetMass/LimitCalc/LimitCode/Data_and_ResonanceShapes/" + shapefile;
 
 
- string filename1 = "Data_and_ResonanceShapes/Resonance_Shapes_qq_Pythia8.root";
- string filename2 = "Data_and_ResonanceShapes/Resonance_Shapes_gg_Pythia8.root";
+ string filename1 = "Data_and_ResonanceShapes/Resonance_Shapes_" + LFRS + "_Pythia8.root";
+ //string filename2 = "Data_and_ResonanceShapes/Resonance_Shapes_gg_Pythia8.root";
 
-  ostringstream histname1, histname2;
+ ostringstream histname1, histname2;
  histname1 << "h_" <<LFRS << "_" << masspoint;   // 53X
- histname2 << "h_" << LFRS << "_" << masspoint;  // 53X
+ //histname2 << "h_" << LFRS << "_" << masspoint;  // 53X
 
 
  //histname1 << "h_qq_" << masspoint;
@@ -223,7 +230,7 @@ int main(int argc, char* argv[])
   histname2 << "h_qstar_"<< masspoint;  
   */
 
-  HISTCDF=getSignalCDF(filename1.c_str(), histname1.str().c_str(), filename2.c_str(), histname2.str().c_str(), BR, 1., 1.);
+  HISTCDF=getSignalCDF(filename1.c_str(), histname1.str().c_str(), filename1.c_str(), histname1.str().c_str(), BR, 1., 1.);
   
   assert(HISTCDF && SIGMASS>0);
   
@@ -269,8 +276,9 @@ int main(int argc, char* argv[])
 
   // perform a signal+background fit or a background-only fit with a fixed non-zero signal
   for(int i=0; i<NPARS; i++) if(PAR_TYPE[i]>=2 || PAR_MIN[i]==PAR_MAX[i]) fit_data.fixParameter(i);
-  if(useBonlyFit) { fit_data.doFit(); fit_data.fixParameter(0); }
+  if(useBonlyFit) { fit_data.doFit(); printSignalXS(fit_data); fit_data.fixParameter(0); }
   fit_data.doFit(&COV_MATRIX[0][0], NPARS);
+  if(!useBonlyFit) printSignalXS(fit_data);
   cout << "Data fit status: " << fit_data.getFitStatus() << endl;
   fit_data.fixParameter(0); // a parameter needs to be fixed before its value can be changed
   fit_data.setParameter(0, 0.0); // set the xs value to 0 to get the B component of the S+B fit (for calculating pulls and generating pseudo-data)
