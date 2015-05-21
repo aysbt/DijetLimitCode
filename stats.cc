@@ -119,6 +119,14 @@ int shift = 1;
 TH1D* HISTCDF=0; // signal CDF
 
 ////////////////////////////////////////////////////////////////////////////////
+// printout function
+////////////////////////////////////////////////////////////////////////////////
+void printSignalXS(const Fitter* fit)
+{
+  cout << "Fitted signal xs: " << fit->getParameter(POIINDEX) << " +/- " << fit->getParError(POIINDEX) << endl;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // fit functions
 ////////////////////////////////////////////////////////////////////////////////
 Double_t fitQCD4Par(Double_t *m, Double_t *p)
@@ -374,9 +382,10 @@ int main(int argc, char* argv[])
 
   // perform a signal+background fit possibly followed by a background-only fit with a fixed but non-zero signal
   for(int i=0; i<NPARS; i++) if(PAR_TYPE[i]>=2 || PAR_MIN[i]==PAR_MAX[i]) fit_data->fixParameter(i);
-  if(BonlyFitForSyst) { fit_data->doFit(); if(fit_data->getFitStatus().find("CONVERGED")==string::npos) { fit_data->fixParameter(0); fit_data->setParameter(0, 0.0); } else fit_data->fixParameter(0); }
+  if(BonlyFitForSyst) { fit_data->doFit(); if(fit_data->getFitStatus().find("CONVERGED")==string::npos) { fit_data->fixParameter(0); fit_data->setParameter(0, 0.0); } else { printSignalXS(fit_data); fit_data->fixParameter(0); } }
   //fit_data->fixParameter(0); fit_data->setParameter(0, 0.0); // for MC studies with expected limits, fixing the signal xs to 0 in the fit
   fit_data->doFit(&COV_MATRIX[0][0], NPARS);
+  if(!BonlyFitForSyst) printSignalXS(fit_data);
   cout << "Data fit status: " << fit_data->getFitStatus() << endl;
   double nll_SpB_data = fit_data->evalNLL();
   //cout << "NLL(S+B) = " << nll_SpB_data << endl;
