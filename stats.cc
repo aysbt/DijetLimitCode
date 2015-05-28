@@ -25,8 +25,7 @@ using namespace std;
 // magic numbers
 ////////////////////////////////////////////////////////////////////////////////
 // number of pseudoexperiments (when greater than 0, expected limit with +/- 1 and 2 sigma bands is calculated)
-// number of pseudoexperiments
-const int NPES=0; // 200
+int NPES=0; // 200
 
 // calculate significance estimator Sig = sgn(S)*sqrt{-2ln[L(B)/L(S+B)]}
 const int calcSig = 0; // needs to be set to 0 for limit calculation
@@ -86,9 +85,6 @@ TMatrixD eigenVectors = TMatrixD(NBKGPARS,NBKGPARS);
 
 // shift in the counter used to extract the covariance matrix
 int shift = 1;
-
-// branching ratio for bbbar final state (calculated wrt to the branching ratio for jet-jet final state)
-double BR = 1;
 
 // light flavor resonance shape
 string LFRS = "gg";
@@ -172,16 +168,19 @@ double INTEGRAL(double *x0, double *xf, double *par)
 
 int main(int argc, char* argv[])
 {
-  if(argc<=1) {
-    cout << "Usage: stats signalmass [BR LFRS]" << endl;
+  if(argc<=2) {
+    cout << "Usage: stats MASS FINAL_STATE" << endl;
     return 0;
   }
 
   SIGMASS = atof(argv[1]);
-  int masspoint = int(SIGMASS);
+  string masspoint = argv[1];
 
-  if(argc>2) BR = atof(argv[2]);
-  if(argc>3) LFRS = argv[3];
+  string final_state = "qq";
+  if(argc>2) final_state = argv[2];
+  if(argc>3) NPES = atoi(argv[3]);
+  int jobID = 0;
+  if(argc>4) jobID = atoi(argv[4]);
 
   if(useBonlyFit) shift = 0;
 
@@ -216,11 +215,11 @@ int main(int argc, char* argv[])
 //string filename2 = "/uscms_data/d3/gurpinar/work/DijetMass/LimitCalc/LimitCode/Data_and_ResonanceShapes/" + shapefile;
 
 
- string filename1 = "Data_and_ResonanceShapes/Resonance_Shapes_" + LFRS + "_Pythia8.root";
+ string filename1 = "Data_and_ResonanceShapes/Resonance_Shapes_" + final_state + "_Pythia8.root";
  //string filename2 = "Data_and_ResonanceShapes/Resonance_Shapes_gg_Pythia8.root";
 
  ostringstream histname1, histname2;
- histname1 << "h_" <<LFRS << "_" << masspoint;   // 53X
+ histname1 << "h_" <<final_state << "_" << masspoint;   // 53X
  //histname2 << "h_" << LFRS << "_" << masspoint;  // 53X
 
 
@@ -233,7 +232,7 @@ int main(int argc, char* argv[])
   histname2 << "h_qstar_"<< masspoint;  
   */
 
-  HISTCDF=getSignalCDF(filename1.c_str(), histname1.str().c_str(), filename1.c_str(), histname1.str().c_str(), BR, 1., 1.);
+  HISTCDF=getSignalCDF(filename1.c_str(), histname1.str().c_str(), filename1.c_str(), histname1.str().c_str(), 1., 1., 1.);
   
   assert(HISTCDF && SIGMASS>0);
   
@@ -241,9 +240,8 @@ int main(int argc, char* argv[])
   TH1D* data=getData(INPUTFILES, "h_DijetMass_data_fine", NBINS, BOUNDARIES);
 
   // create the output file
-  ostringstream outputfile;
-  outputfile << OUTPUTFILE.substr(0,OUTPUTFILE.find(".root")) << "_" << masspoint << "_" << BR << "_" << LFRS << ".root";
-  TFile* rootfile=new TFile(outputfile.str().c_str(), "RECREATE");  rootfile->cd();
+  string outputfile = OUTPUTFILE.substr(0,OUTPUTFILE.find(".root")) + "_" + masspoint + "_" + final_state + (argc>4 ? "_" : "") + (argc>4 ? to_string(jobID) : "") + ".root";
+  TFile* rootfile=new TFile(outputfile.c_str(), "RECREATE");  rootfile->cd();
 
   // xs value
   double XSval;
@@ -273,6 +271,7 @@ int main(int argc, char* argv[])
 
   // setup the fitter with the input from the signal+background fit
   Fitter fit_data(data, INTEGRAL);
+  fit_data.setRandomSeed(31415+jobID*100);
   fit_data.setPOIIndex(POIINDEX);
   //fit_data.setPrintLevel(0);
   for(int i=0; i<NPARS; i++) fit_data.defineParameter(i, PAR_NAMES[i], initfit.getParameter(i), PAR_ERR[i], PAR_MIN[i], PAR_MAX[i], PAR_NUIS[i]);
@@ -292,9 +291,9 @@ int main(int argc, char* argv[])
   double nll_B_data = fit_data.evalNLL();
   //cout << "NLL(B) = " << nll_B_data << endl;
   fit_data.setPrintLevel(0);
-  fit_data.calcPull("pull_bkg_0")->Write();
-  fit_data.calcDiff("diff_bkg_0")->Write();
-  fit_data.write("fit_bkg_0");
+  if(jobID==0) fit_data.calcPull("pull_bkg_0")->Write();
+  if(jobID==0) fit_data.calcDiff("diff_bkg_0")->Write();
+  if(jobID==0) fit_data.write("fit_bkg_0");
 
   // Significance estimator: Sig = sgn(S)*sqrt{-2ln[L(B)/L(S+B)]}
   double nll_Diff_data = nll_B_data-nll_SpB_data;
@@ -311,7 +310,7 @@ int main(int argc, char* argv[])
 
   fit_data.setParLimits(0, 0.0, PAR_MAX[0]); // for posterior calculation, signal has to be positive
   TGraph* post_data=fit_data.calculatePosterior(NSAMPLES);
-  post_data->Write("post_0");
+  if(jobID==0) post_data->Write("post_0");
   cout << "Call limit reached: " << (fit_data.callLimitReached() ? "True" : "False") << endl;
 
   // evaluate the limit
@@ -323,7 +322,7 @@ int main(int argc, char* argv[])
   for(int i = 0; i<NPARS; ++i) { for(int j = 0; j<NPARS; ++j) COV_MATRIX[i][j]=0.; }
 
   // perform the PEs
-  for(int pe=1; pe<=NPES; ++pe) {
+  for(int pe=(jobID*NPES+1); pe<=(jobID*NPES+NPES); ++pe) {
 
     cout << "********************** pe=" << pe << " **********************" << endl;
     ostringstream pestr;
@@ -394,7 +393,7 @@ int main(int argc, char* argv[])
 
   cout << "**********************************************************************" << endl;
   for(unsigned int i=0; i<expectedLowerBounds.size(); i++)
-    cout << "expected bound(" << (i+1) << ") = [ " << expectedLowerBounds[i] << " , " << expectedUpperBounds[i] << " ]" << endl;
+    cout << "expected bound(" << (jobID*NPES+i+1) << ") = [ " << expectedLowerBounds[i] << " , " << expectedUpperBounds[i] << " ]" << endl;
 
   cout << "\nobserved bound = [ " << observedLowerBound << " , " << observedUpperBound << " ]" << endl;
 
