@@ -156,7 +156,7 @@ double INTEGRAL(double *x0, double *xf, double *par)
   int bin2=HISTCDF->GetXaxis()->FindBin(xprime0);
   if(bin1<1) bin1=1;
   if(bin1>HISTCDF->GetNbinsX()) bin1=HISTCDF->GetNbinsX();
-  if(bin2<1) bin1=1;
+  if(bin2<1) bin2=1;
   if(bin2>HISTCDF->GetNbinsX()) bin2=HISTCDF->GetNbinsX();
   double sig=xs*lumi*(HISTCDF->GetBinContent(bin1)-HISTCDF->GetBinContent(bin2));
 
@@ -276,7 +276,7 @@ int main(int argc, char* argv[])
 
   // perform a signal+background fit or a background-only fit with a fixed non-zero signal
   for(int i=0; i<NPARS; i++) if(PAR_TYPE[i]>=2 || PAR_MIN[i]==PAR_MAX[i]) fit_data.fixParameter(i);
-  if(useBonlyFit) { fit_data.doFit(); printSignalXS(fit_data); fit_data.fixParameter(0); }
+  if(useBonlyFit) { fit_data.doFit(); if(fit_data.getFitStatus().find("CONVERGED")==string::npos) { fit_data.fixParameter(0); fit_data.setParameter(0, 0.0); } else { printSignalXS(fit_data); fit_data.fixParameter(0); } }
   fit_data.doFit(&COV_MATRIX[0][0], NPARS);
   if(!useBonlyFit) printSignalXS(fit_data);
   cout << "Data fit status: " << fit_data.getFitStatus() << endl;
@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
 
     // perform a signal+background fit or a background-only fit with a fixed non-zero signal
     for(int i=0; i<NPARS; i++) if(PAR_TYPE[i]>=2 || PAR_MIN[i]==PAR_MAX[i]) fit.fixParameter(i);
-    if(useBonlyFit) { fit.doFit(); fit.fixParameter(0); }
+    if(useBonlyFit) { fit.doFit(); if(fit.getFitStatus().find("CONVERGED")==string::npos) { fit.fixParameter(0); fit.setParameter(0, 0.0); } else fit.fixParameter(0); }
     fit.doFit(&COV_MATRIX[0][0], NPARS);
     if(fit.getFitStatus().find("CONVERGED")==string::npos) continue; // skip this PE if the fit failed
     fit.fixParameter(0); // a parameter needs to be fixed before its value can be changed
