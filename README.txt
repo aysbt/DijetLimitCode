@@ -13,7 +13,6 @@ Please refer to https://twiki.cern.ch/twiki/bin/view/CMS/DijetLimitCode for addi
 
    NOTE: You can skip this step if you already have your working area set up. Nevertheless,
          you will still need to initialize the CMSSW environment by calling 'cmsenv'.
-         CMSSW_7_0_9 is used just as an example. Any CMSSW_7_0_X release should work.
 
 2) Install BAT (Bayesian Analysis Toolkit):
 
@@ -38,7 +37,7 @@ Please refer to https://twiki.cern.ch/twiki/bin/view/CMS/DijetLimitCode for addi
 
 3) Checkout the limit code package:
 
-   git clone git://github.com/CMSDIJET/DijetLimitCode.git LimitCode
+   git clone git://github.com/CMSDIJET/DijetLimitCode.git DijetLimitCode
 
    Enter the package directory:
 
@@ -78,7 +77,7 @@ Please refer to https://twiki.cern.ch/twiki/bin/view/CMS/DijetLimitCode for addi
    ./stats 4000 qg
 
 --------------------
-Running with Condor:
+Running using Condor:
 --------------------
 
 In order to speed up the process of running the limit code for multiple mass points, it is possible to use
