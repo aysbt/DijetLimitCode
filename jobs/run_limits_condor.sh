@@ -33,7 +33,7 @@ cd -
 mkdir Data_and_ResonanceShapes
 mv *.root Data_and_ResonanceShapes/
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${_CONDOR_SCRATCH_DIR}
+export LD_LIBRARY_PATH=${_CONDOR_SCRATCH_DIR}:$LD_LIBRARY_PATH
 
 echo "Running: stats $MASS $FINAL_STATE $NPES $CONDOR_PROCESS > $LOG 2>&1"
 ./stats $MASS $FINAL_STATE $NPES $CONDOR_PROCESS > $LOG 2>&1

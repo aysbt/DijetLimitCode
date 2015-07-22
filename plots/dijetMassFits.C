@@ -78,7 +78,7 @@ void performFit(const string& fInputFile, const string& fPlot,  const Int_t fNbi
   //h1_plot_diff->GetYaxis()->SetTitle("d#sigma/dm [pb/GeV]");
   h1_plot_diff->GetYaxis()->SetTitle("Entries/GeV");
   h1_plot_diff->GetXaxis()->SetRangeUser(fFitXmin,fFitXmax);
-  h1_plot_diff->GetYaxis()->SetRangeUser(1e-3,1e4);
+  h1_plot_diff->GetYaxis()->SetRangeUser(1e-04,1e+02);
   h1_plot_diff->SetMarkerStyle(20);
   h1_plot_diff->SetMarkerSize(0.8);
   h1_plot_diff->SetTitleOffset(1.,"Y");
@@ -100,7 +100,7 @@ void performFit(const string& fInputFile, const string& fPlot,  const Int_t fNbi
 //   fit->SetParLimits(1, 0., 100.);
 //   fit->SetParLimits(2, 0., 100.);
 //   fit->SetParLimits(3,-5., 5.);
-//   fit->FixParameter(3,fP3);
+  fit->FixParameter(3,fP3);
 
   fit->SetLineWidth(2);
   fit->SetLineColor(kBlue);
@@ -137,7 +137,7 @@ void performFit(const string& fInputFile, const string& fPlot,  const Int_t fNbi
   l1.SetNDC();
   l1.SetTextSize(0.03);
   l1.DrawLatex(0.17,0.43, "CMS Preliminary");
-  l1.DrawLatex(0.17,0.37, "#intLdt = 1 fb^{-1}");
+  l1.DrawLatex(0.17,0.37, "#intLdt = 37 pb^{-1}");
   l1.DrawLatex(0.17,0.33, "#sqrt{s} = 13 TeV");
   l1.DrawLatex(0.17,0.25, fLabel.c_str());
   
@@ -191,7 +191,7 @@ void drawFit(const string& fInputFile, const string& fPlot, const Int_t fNbins, 
   //h1_plot_diff->GetYaxis()->SetTitle("d#sigma/dm [pb/GeV]");
   h1_plot_diff->GetYaxis()->SetTitle("Entries/GeV");
   h1_plot_diff->GetXaxis()->SetRangeUser(fFitXmin,fFitXmax);
-  h1_plot_diff->GetYaxis()->SetRangeUser(1e-3,1e4);
+  h1_plot_diff->GetYaxis()->SetRangeUser(1e-04,1e+02);
   h1_plot_diff->SetMarkerStyle(20);
   h1_plot_diff->SetMarkerSize(0.8);
   h1_plot_diff->SetTitleOffset(1.,"Y");
@@ -218,7 +218,7 @@ void drawFit(const string& fInputFile, const string& fPlot, const Int_t fNbins, 
   h1_plot_diff->Draw();
   fit->Draw("same");
 
-  TLegend *legend = new TLegend(.7,.4,.85,.5);
+  TLegend *legend = new TLegend(.7,.5,.85,.6);
   legend->SetBorderSize(0);
   legend->SetFillColor(0);
   legend->SetFillStyle(0);
@@ -232,7 +232,7 @@ void drawFit(const string& fInputFile, const string& fPlot, const Int_t fNbins, 
   l1.SetNDC();
   l1.SetTextSize(0.03);
   l1.DrawLatex(0.17,0.43, "CMS Preliminary");
-  l1.DrawLatex(0.17,0.37, "#intLdt = 1 fb^{-1}");
+  l1.DrawLatex(0.17,0.37, "#intLdt = 37 pb^{-1}");
   l1.DrawLatex(0.17,0.33, "#sqrt{s} = 13 TeV");
   l1.DrawLatex(0.17,0.25, fLabel.c_str());
 
@@ -252,15 +252,15 @@ void makePlots()
                        2659, 2775, 2895, 3019, 3147, 3279, 3416, 3558, 3704,
                        3854, 4010, 4171, 4337, 4509, 4686, 4869, 5058, 5253,
                        5455, 5663, 5877, 6099, 6328, 6564, 6808, 7060, 7320, 
-                       7589, 7866, 8152, 8447, 8752, 9067 };
+                       7589 };
 
-  performFit("Data_and_ResonanceShapes/histo_bkg_mjj_pseudo.root",
-             "hist_mass_1GeV", 50, xbins, 1118, 6564, "M_{jj}>1118 GeV",
-             "DijetMass_4ParFit_Run2_13TeV.pdf", 0, 6.99137e-03, 7.63335e+00, 5.46640e+00,  2.31555e-02);
+  performFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_22_07_15_37_invpb.root",
+             "h_dat", 45, xbins, 1118, 7589, "M_{jj}>1118 GeV",
+             "DijetMass_4ParFit_Run2_13TeV_DATA_37_invpb.pdf", 0, 4.00421e-04, 1.07566e+01, 5.15889e+00,  0.00000e+00);
 
-  drawFit("Data_and_ResonanceShapes/histo_bkg_mjj_pseudo.root",
-          "hist_mass_1GeV", 50, xbins, 1118, 6564, "M_{jj}>1118 GeV",
-          "DijetMass_Draw4ParFit_Run2_13TeV.pdf", 0, 6.99137e-03, 7.63335e+00, 5.46640e+00,  2.31555e-02);
+  drawFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_22_07_15_37_invpb.root",
+          "h_dat", 45, xbins, 1118, 7589, "M_{jj}>1118 GeV",
+          "DijetMass_Draw4ParFit_Run2_13TeV_DATA_37_invpb.pdf", 0, 3.11751e-04, 1.01715e+01, 5.24050e+00,  0.00000e+00);
 
 }
 

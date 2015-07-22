@@ -5,10 +5,6 @@ from ROOT import *
 from array import array
 import CMS_lumi
 
-CMS_lumi.extraText = "Simulation Preliminary"
-CMS_lumi.lumi_sqrtS = "1 fb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
-iPos = 11
-iPeriod = 0
 
 gROOT.SetBatch(kTRUE);
 gStyle.SetOptStat(0)
@@ -34,8 +30,8 @@ sig = array('d')
 sig_ex = array('d')
 sig_ey = array('d')
 
-mass_min = 1200
-mass_max = 6000
+mass_min = 1300
+mass_max = 5500
 
 ########################################################
 ## Uncomment this part if running the limit code
@@ -64,6 +60,7 @@ mass_max = 6000
       #foundLine = True
       #sig.append(float(line.split()[3]))
       #sig_ey.append(float(line.split()[5]))
+      #break
 
   #if not foundLine:
     #print "Signal fit failed for m="+str(mass)+" GeV"
@@ -71,16 +68,41 @@ mass_max = 6000
     #sig_ey.append(0.)
 
   #sig_ex.append(0.)
+
+#------------------------------------------------------
+
+### for reading the limit code log files
+#for mass in range(mass_min,mass_max+100,100):
+
+  #masses.append(mass)
+
+  #log_file = open("stats_" + str(int(mass)) + "_gg.log",'r')
+  #outputlines = log_file.readlines()
+  #log_file.close()
+
+  #foundLine = False
+
+  #for line in outputlines:
+    #if "Fitted signal xs:" in line:
+      ##print line
+      #foundLine = True
+      #sig.append(float(line.split()[3]))
+      #sig_ey.append(float(line.split()[5]))
+      #break
+
+  #if not foundLine:
+    #print "Signal fit failed for m="+str(mass)+" GeV"
+    #sig.append(0.)
+    #sig_ey.append(0.)
+
+  #sig_ex.append(0.)
+
 ##------------------------------------------------------
 
-#print "masses:"
-#print masses
-#print "sig:"
-#print sig
-#print "sig_ex:"
-#print sig_ex
-#print "sig_ey:"
-#print sig_ey
+#print "masses =", masses
+#print "sig =", sig
+#print "sig_ex =", sig_ex
+#print "sig_ey =", sig_ey
 
 ##
 ########################################################
@@ -88,10 +110,10 @@ mass_max = 6000
 ########################################################
 ## Comment out this part if running the limit code
 
-masses = array('d', [1200.0, 1300.0, 1400.0, 1500.0, 1600.0, 1700.0, 1800.0, 1900.0, 2000.0, 2100.0, 2200.0, 2300.0, 2400.0, 2500.0, 2600.0, 2700.0, 2800.0, 2900.0, 3000.0, 3100.0, 3200.0, 3300.0, 3400.0, 3500.0, 3600.0, 3700.0, 3800.0, 3900.0, 4000.0, 4100.0, 4200.0, 4300.0, 4400.0, 4500.0, 4600.0, 4700.0, 4800.0, 4900.0, 5000.0, 5100.0, 5200.0, 5300.0, 5400.0, 5500.0, 5600.0, 5700.0, 5800.0, 5900.0, 6000.0])
-sig = array('d', [27.0946, 4.79285, -6.00013, -2.28647, 2.72354, 2.2926, 1.22934, -0.279747, -0.620485, -0.638894, -0.487682, -0.513778, -0.648255, -0.429234, -0.0624615, 0.0386269, 0.0565091, 0.0622432, 0.0429892, 0.0188617, 0.0157891, 0.0585926, 0.101963, 0.105659, 0.0759153, 0.0292241, 0.00299352, -0.0101529, -0.00758116, 0.00801695, 0.0379726, 0.052085, 0.0544032, 0.0440786, 0.0291182, 0.0207685, 0.0203204, 0.0230747, 0.0236423, 0.0219629, 0.0178747, 0.0118113, 0.00339626, -0.00241206, -0.00974763, -0.0145002, 0.0, 0.0, 0.0])
-sig_ex = array('d', [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-sig_ey = array('d', [8.45512, 4.10784, 2.19475, 1.55258, 1.19888, 0.976435, 0.827974, 0.692161, 0.619502, 0.50923, 0.411573, 0.35268, 0.300496, 0.256377, 0.219219, 0.188875, 0.163996, 0.142098, 0.124507, 0.109799, 0.0969117, 0.0859222, 0.07648, 0.0682976, 0.0613106, 0.0547728, 0.048902, 0.043881, 0.039477, 0.0357296, 0.0327128, 0.029919, 0.0275172, 0.0252206, 0.0231467, 0.021177, 0.0191986, 0.0175375, 0.0160483, 0.0148663, 0.0136892, 0.0125385, 0.0112733, 0.0100433, 0.00843162, 0.00641001, 0.0, 0.0, 0.0])
+masses = array('d', [1300.0, 1400.0, 1500.0, 1600.0, 1700.0, 1800.0, 1900.0, 2000.0, 2100.0, 2200.0, 2300.0, 2400.0, 2500.0, 2600.0, 2700.0, 2800.0, 2900.0, 3000.0, 3100.0, 3200.0, 3300.0, 3400.0, 3500.0, 3600.0, 3700.0, 3800.0, 3900.0, 4000.0, 4100.0, 4200.0, 4300.0, 4400.0, 4500.0, 4600.0, 4700.0, 4800.0, 4900.0, 5000.0, 5100.0, 5200.0, 5300.0, 5400.0, 5500.0])
+sig = array('d', [-8.22387, 18.264, 12.9471, 2.41382, -0.371414, -4.08981, -6.00112, -2.95611, -1.17016, -1.45804, -1.22046, -0.77783, 0.0790704, 0.527573, 0.366859, 0.459686, 0.653938, 0.748401, 0.700125, 0.50387, 0.278639, 0.137913, -0.0836948, -0.154372, -0.104143, -0.0737474, -0.0692301, -0.0376136, -0.0124663, -0.0136281, -0.0329493, -0.0672988, -0.0663485, -0.0238393, 0.0113907, 0.0312978, 0.0391055, 0.0415103, 0.0408303, 0.0379156, 0.0330154, 0.0264998, 0.019957])
+sig_ex = array('d', [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+sig_ey = array('d', [13.2471, 11.5931, 8.73974, 4.21594, 4.09052, 3.32446, 3.10087, 2.10065, 1.74514, 1.48223, 1.18846, 1.13088, 0.837235, 0.721447, 0.629456, 0.65018, 0.474956, 0.601891, 0.459932, 0.402819, 0.28566, 0.253593, 0.245903, 0.174189, 0.181558, 0.124556, 0.154766, 0.104923, 0.0982693, 0.082786, 0.080758, 0.0898513, 0.090995, 0.067828, 0.0621445, 0.0595393, 0.0577571, 0.055259, 0.0536382, 0.0531544, 0.0525709, 0.0518648, 0.051015])
 
 ##
 ########################################################
@@ -113,7 +135,7 @@ for i in range(0,len(masses)):
 graph_sig = TGraphAsymmErrors(len(masses),masses,sig_pos,sig_exl,sig_exh,sig_eyl,sig_eyh)
 graph_sig.GetXaxis().SetTitle("gg resonance mass [GeV]")
 graph_sig.GetYaxis().SetTitle("Signal cross section [pb]")
-graph_sig.GetYaxis().SetRangeUser(1e-3,2e2)
+graph_sig.GetYaxis().SetRangeUser(1e-4,2e2)
 graph_sig.SetMarkerStyle(20)
 graph_sig.SetMarkerColor(1)
 graph_sig.SetLineWidth(2)
@@ -126,6 +148,11 @@ c.cd()
 graph_sig.Draw("AP")
 
 #draw the lumi text on the canvas
+CMS_lumi.extraText = "Preliminary"
+CMS_lumi.lumi_sqrtS = "37 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
+iPos = 11
+iPeriod = 0
+
 CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
 gPad.RedrawAxis()
@@ -133,4 +160,4 @@ gPad.RedrawAxis()
 c.SetLogy()
 c.SetGridx()
 c.SetGridy()
-c.SaveAs('signal_xs_gg_Run2_13TeV.pdf')
+c.SaveAs('signal_xs_DijetLimitCode_gg_Run2_13TeV_DATA_37_invpb.eps')
