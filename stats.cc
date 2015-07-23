@@ -44,7 +44,7 @@ const int NSAMPLES=0; // 10000 (larger value is better but it also slows down th
 int NPES=0; // 200 (the more pseudo-experiments, the better. However, 200 is a reasonable choice)
 
 // calculate significance estimator Sig = sgn(S)*sqrt{-2ln[L(B)/L(S+B)]}
-const int calcSig = 1; // needs to be set to 0 for limit calculation
+const int calcSig = 0; // needs to be set to 0 for limit calculation
 
 // use 6-parameter background fit function
 const bool use6ParFit = 0;
