@@ -247,4 +247,4 @@ CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 gPad.RedrawAxis()
 
 c.SetLogy()
-c.SaveAs('xs_limit_DijetLimitCode_qq' + ('_syst' if syst else '') + '_Run2_13TeV_DATA_37_invpb.eps')
+c.SaveAs('xs_limit_DijetLimitCode_qq' + ('_NoSyst' if not syst else '') + '_Run2_13TeV_DATA_37_invpb.eps')
