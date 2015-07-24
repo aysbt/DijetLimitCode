@@ -91,12 +91,12 @@ significances = array('d', [0.0, 1.8888, 1.66027, 0.393531, 0.0, 0.0, 0.0, 0.0, 
 graph_sig = TGraph(len(masses),masses,significances)
 graph_sig.GetXaxis().SetTitle("gg resonance mass [GeV]")
 graph_sig.GetYaxis().SetTitle("Significance")
+graph_sig.GetYaxis().SetRangeUser(0.,3.)
 graph_sig.SetLineWidth(2)
 graph_sig.SetLineColor(kRed)
 graph_sig.SetMarkerStyle(21)
 graph_sig.SetMarkerSize(1)
 graph_sig.SetMarkerColor(kBlue)
-#graph_sig.GetYaxis().SetRangraph_sig.SetMarkerStyle(20)geUser(1e-03,2e+02)
 #graph_sig.GetXaxis().SetNdivisions(1005)
 
 
@@ -114,6 +114,8 @@ iPeriod = 0
 
 CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
-gPad.RedrawAxis();
+gPad.RedrawAxis()
 
+c.SetGridx()
+c.SetGridy()
 c.SaveAs('significance_DijetLimitCode_gg_Run2_13TeV_DATA_37_invpb.eps')
