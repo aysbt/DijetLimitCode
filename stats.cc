@@ -65,13 +65,14 @@ const string OUTPUTFILE="stats.root";
 const double sqrtS = 13000.;
 
 // histogram binning
-const int NBINS=45;
+const int NBINS=54;
 double BOUNDARIES[NBINS+1] = { 1118, 1181, 1246, 1313, 1383, 1455, 1530, 1607, 1687,
                                1770, 1856, 1945, 2037, 2132, 2231, 2332, 2438, 2546,
                                2659, 2775, 2895, 3019, 3147, 3279, 3416, 3558, 3704,
                                3854, 4010, 4171, 4337, 4509, 4686, 4869, 5058, 5253,
-                               5455, 5663, 5877, 6099, 6328, 6564, 6808, 7060, 7320, 
-                               7589 };
+                               5455, 5663, 5877, 6099, 6328, 6564, 6808, 7060, 7320,
+                               7589, 7866, 8152, 8447, 8752, 9067, 9391, 9726, 10072,
+                               10430 };
 
 // parameters
 double SIGMASS=0;
@@ -79,10 +80,10 @@ const int NPARS=16;
 const int NBKGPARS=(use6ParFit ? 6 : 4);
 const int POIINDEX=0; // which parameter is "of interest"
 string PAR_NAMES[NPARS]   = { "xs",  "lumi",  "jes", "jer",        "p0",        "p1",        "p2",         "p3",        "p4",         "p5", "n0", "n1", "n2", "n3", "n4", "n5" };
-double PAR_GUESSES[NPARS] = { 1E-3,     37.,    1.0,   1.0, 3.11751e-04, 1.01715e+01, 5.24050e+00,  0.00000e+00,          0.,           0.,    0,    0,    0,    0,    0,    0 };
+double PAR_GUESSES[NPARS] = { 1E-3,    40.2,    1.0,   1.0, 3.69833e-04, 1.02672e+01, 5.21046e+00,  0.00000e+00,          0.,           0.,    0,    0,    0,    0,    0,    0 };
 double PAR_MIN[NPARS]     = {    0,     0.0,    0.0,   0.0,        -1E4,       -9999,       -9999,        -9999,       -9999,        -9999, -100, -100, -100, -100, -100, -100 };
 double PAR_MAX[NPARS]     = {  1E3,     5E3,    2.0,   2.0,         1E4,        9999,        9999,         9999,        9999,         9999,  100,  100,  100,  100,  100,  100 };
-double PAR_ERR[NPARS]     = { 1E-3,     3.7,   0.05,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
+double PAR_ERR[NPARS]     = { 1E-3,    4.02,   0.05,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
 int PAR_TYPE[NPARS]       = {    0,       2,      2,     2,           0,           0,           0,            3,           0,            0,    3,    3,    3,    3,    3,    3 }; // // 1,2 = signal (2 not used in the fit); 0,3 = background (3 not used in the fit)
 int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,           0,           0,            0,           0,            0,    4,    4,    4,    4,    4,    4 }; // 0 = not varied, >=1 = nuisance parameters with different priors (1 = Lognormal, 2 = Gaussian, 3 = Gamma, >=4 = Uniform)
 
@@ -321,7 +322,7 @@ int main(int argc, char* argv[])
   //
 
   // input data file
-  INPUTFILES.push_back("Data_and_ResonanceShapes/histo_data_mjj_fromTree_22_07_15_37_invpb.root");
+  INPUTFILES.push_back("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_40p2_invpb.root");
 
   // data histogram name
   string datahistname = "h_dat";

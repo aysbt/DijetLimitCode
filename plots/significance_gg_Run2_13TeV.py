@@ -29,7 +29,7 @@ masses = array('d')
 significances = array('d')
 
 mass_min = 1300
-mass_max = 5500
+mass_max = 7000
 
 ##------------------------------------------------------
 ## for reading the limit code log files
@@ -83,15 +83,16 @@ mass_max = 5500
 
 ##------------------------------------------------------
 
-masses = array('d', [1300.0, 1400.0, 1500.0, 1600.0, 1700.0, 1800.0, 1900.0, 2000.0, 2100.0, 2200.0, 2300.0, 2400.0, 2500.0, 2600.0, 2700.0, 2800.0, 2900.0, 3000.0, 3100.0, 3200.0, 3300.0, 3400.0, 3500.0, 3600.0, 3700.0, 3800.0, 3900.0, 4000.0, 4100.0, 4200.0, 4300.0, 4400.0, 4500.0, 4600.0, 4700.0, 4800.0, 4900.0, 5000.0, 5100.0, 5200.0, 5300.0, 5400.0, 5500.0])
-significances = array('d', [0.0, 1.8888, 1.66027, 0.393531, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0832255, 0.615653, 0.479119, 0.654766, 1.0924, 1.4988, 1.6562, 1.32954, 0.837413, 0.439148, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.170785, 0.60934, 0.920242, 1.0845, 1.09834, 0.998668, 0.824767, 0.618343, 0.436544])
+masses = array('d', [1300.0, 1400.0, 1500.0, 1600.0, 1700.0, 1800.0, 1900.0, 2000.0, 2100.0, 2200.0, 2300.0, 2400.0, 2500.0, 2600.0, 2700.0, 2800.0, 2900.0, 3000.0, 3100.0, 3200.0, 3300.0, 3400.0, 3500.0, 3600.0, 3700.0, 3800.0, 3900.0, 4000.0, 4100.0, 4200.0, 4300.0, 4400.0, 4500.0, 4600.0, 4700.0, 4800.0, 4900.0, 5000.0, 5100.0, 5200.0, 5300.0, 5400.0, 5500.0, 5600.0, 5700.0, 5800.0, 5900.0, 6000.0, 6100.0, 6200.0, 6300.0, 6400.0, 6500.0, 6600.0, 6700.0, 6800.0, 6900.0, 7000.0])
+significances = array('d', [0.129617, 1.45142, 0.946522, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.325552, 1.14013, 1.16746, 0.544716, 0.659401, 1.14653, 1.40125, 1.2787, 0.801707, 0.298651, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.00331225, 0.47558, 0.806716, 0.980612, 0.996478, 0.894156, 0.714373, 0.500641, 0.312279, 0.156897, 0.0108946, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
 ##------------------------------------------------------
 
 graph_sig = TGraph(len(masses),masses,significances)
 graph_sig.GetXaxis().SetTitle("gg resonance mass [GeV]")
-graph_sig.GetYaxis().SetTitle("Significance")
-graph_sig.GetYaxis().SetRangeUser(0.,3.)
+graph_sig.GetYaxis().SetTitle("Significance (local)")
+graph_sig.GetYaxis().SetTitleOffset(1.2)
+graph_sig.GetYaxis().SetRangeUser(0.,2.5)
 graph_sig.SetLineWidth(2)
 graph_sig.SetLineColor(kRed)
 graph_sig.SetMarkerStyle(21)
@@ -108,7 +109,7 @@ graph_sig.Draw("ALP")
 
 # draw the lumi text on the canvas
 CMS_lumi.extraText = "Preliminary"
-CMS_lumi.lumi_sqrtS = "37 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
+CMS_lumi.lumi_sqrtS = "40.2 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 iPeriod = 0
 
@@ -118,4 +119,4 @@ gPad.RedrawAxis()
 
 c.SetGridx()
 c.SetGridy()
-c.SaveAs('significance_DijetLimitCode_gg_Run2_13TeV_DATA_37_invpb.eps')
+c.SaveAs('significance_DijetLimitCode_gg_Run2_13TeV_DATA_40p2_invpb.eps')
