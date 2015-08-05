@@ -79,10 +79,10 @@ double SIGMASS=0;
 const int NPARS=16;
 const int NBKGPARS=(use6ParFit ? 6 : 4);
 const int POIINDEX=0; // which parameter is "of interest"
-string PAR_NAMES[NPARS]   = { "xs",  "lumi",  "jes", "jer",        "p0",        "p1",        "p2",         "p3",        "p4",         "p5", "n0", "n1", "n2", "n3", "n4", "n5" };
-double PAR_GUESSES[NPARS] = { 1E-3,    40.2,    1.0,   1.0, 3.69833e-04, 1.02672e+01, 5.21046e+00,  0.00000e+00,          0.,           0.,    0,    0,    0,    0,    0,    0 };
-double PAR_MIN[NPARS]     = {    0,     0.0,    0.0,   0.0,        -1E4,       -9999,       -9999,        -9999,       -9999,        -9999, -100, -100, -100, -100, -100, -100 };
-double PAR_MAX[NPARS]     = {  1E3,     5E3,    2.0,   2.0,         1E4,        9999,        9999,         9999,        9999,         9999,  100,  100,  100,  100,  100,  100 };
+string PAR_NAMES[NPARS]   = { "xs",  "lumi",  "jes", "jer",      "norm",        "p1",        "p2",         "p3",        "p4",         "p5", "n0", "n1", "n2", "n3", "n4", "n5" };
+double PAR_GUESSES[NPARS] = { 1E-3,    40.2,    1.0,   1.0, 1.08130e+04, 1.02675e+01, 5.21042e+00,  0.00000e+00,          0.,           0.,    0,    0,    0,    0,    0,    0 };
+double PAR_MIN[NPARS]     = {    0,     0.0,    0.0,   0.0,           0,       -9999,       -9999,        -9999,       -9999,        -9999, -100, -100, -100, -100, -100, -100 };
+double PAR_MAX[NPARS]     = {  1E3,     5E3,    2.0,   2.0,         1E6,        9999,        9999,         9999,        9999,         9999,  100,  100,  100,  100,  100,  100 };
 double PAR_ERR[NPARS]     = { 1E-3,    4.02,   0.05,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
 int PAR_TYPE[NPARS]       = {    1,       2,      2,     2,           0,           0,           0,            3,           0,            0,    3,    3,    3,    3,    3,    3 }; // // 1,2 = signal (2 not used in the fit); 0,3 = background (3 not used in the fit)
 int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,           0,           0,            0,           0,            0,    4,    4,    4,    0,    4,    4 }; // 0 = not varied, >=1 = nuisance parameters with different priors (1 = Lognormal, 2 = Gaussian, 3 = Gamma, >=4 = Uniform)
@@ -134,18 +134,18 @@ Double_t fitQCD4Par(Double_t *m, Double_t *p)
 {
     double x=m[0]/sqrtS;
     double logx=log(x);
-    return p[0]*pow(1.-x,p[1])/pow(x,p[2]+p[3]*logx);
+    return pow(1.-x,p[0])/pow(x,p[1]+p[2]*logx);
 }
 
 Double_t fitQCD6Par(Double_t *m, Double_t *p)
 {
     double x=m[0]/sqrtS;
     double logx=log(x);
-    return p[0]*pow(1.-x,p[1])/pow(x,p[2]+p[3]*logx+p[4]*pow(logx,2)+p[5]*pow(logx,3));
+    return pow(1.-x,p[0])/pow(x,p[1]+p[2]*logx+p[3]*pow(logx,2)+p[4]*pow(logx,3));
 }
 
-TF1 fit4par("fit4par",fitQCD4Par,BOUNDARIES[0],BOUNDARIES[NBINS],4);
-TF1 fit6par("fit6par",fitQCD6Par,BOUNDARIES[0],BOUNDARIES[NBINS],6);
+TF1 fit4par("fit4par",fitQCD4Par,BOUNDARIES[0],BOUNDARIES[NBINS],3);
+TF1 fit6par("fit6par",fitQCD6Par,BOUNDARIES[0],BOUNDARIES[NBINS],5);
 
 ////////////////////////////////////////////////////////////////////////////////
 // function integral -- 4-parameter background fit function
@@ -179,10 +179,9 @@ double INTEGRAL_4PAR(double *x0, double *xf, double *par)
     }
   }
 
-  fit4par.SetParameter(0,p0);
-  fit4par.SetParameter(1,p1);
-  fit4par.SetParameter(2,p2);
-  fit4par.SetParameter(3,p3);
+  fit4par.SetParameter(0,p1);
+  fit4par.SetParameter(1,p2);
+  fit4par.SetParameter(2,p3);
 
   // uses Simpson's 3/8th rule to compute the background integral over a short interval
   //double h=(xf[0]-x0[0])/3.;
@@ -194,7 +193,7 @@ double INTEGRAL_4PAR(double *x0, double *xf, double *par)
   //double f4=fit4par.Eval(b);
 
   //double bkg=0.375*h*(f1 + 3*(f2 + f3) + f4);
-  double bkg=fit4par.Integral(a,b);
+  double bkg=p0*(fit4par.Integral(a,b)/fit4par.Integral(BOUNDARIES[0],BOUNDARIES[NBINS]));
   if(bkg<0.) bkg=1e-7;
 
   if(xs==0.0) return bkg;
@@ -250,12 +249,11 @@ double INTEGRAL_6PAR(double *x0, double *xf, double *par)
     }
   }
 
-  fit6par.SetParameter(0,p0);
-  fit6par.SetParameter(1,p1);
-  fit6par.SetParameter(2,p2);
-  fit6par.SetParameter(3,p3);
-  fit6par.SetParameter(4,p4);
-  fit6par.SetParameter(5,p5);
+  fit6par.SetParameter(0,p1);
+  fit6par.SetParameter(1,p2);
+  fit6par.SetParameter(2,p3);
+  fit6par.SetParameter(3,p4);
+  fit6par.SetParameter(4,p5);
 
   // uses Simpson's 3/8th rule to compute the background integral over a short interval
   //double h=(xf[0]-x0[0])/3.;
@@ -267,7 +265,7 @@ double INTEGRAL_6PAR(double *x0, double *xf, double *par)
   //double f4=fit6par.Eval(b);
 
   //double bkg=0.375*h*(f1 + 3*(f2 + f3) + f4);
-  double bkg=fit6par.Integral(a,b);
+  double bkg=p0*(fit6par.Integral(a,b)/fit6par.Integral(BOUNDARIES[0],BOUNDARIES[NBINS]));
   if(bkg<0.) bkg=1e-7;
 
   if(xs==0.0) return bkg;
