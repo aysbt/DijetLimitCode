@@ -33,7 +33,7 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 
 // use Markov chain Monte Carlo (MCMC) to marginalize nuisance parameters
-const int useMCMC = 0;
+const int useMCMC = 1;
 // IMPORTANT: With useMCMC = 1, the systematic uncertanties are included in the limit calculation by default. Use the PAR_NUIS[] array below to control what uncertainties are included
 
 // number of samples of nuisance parameters for Bayesian MC integration
@@ -84,8 +84,8 @@ double PAR_GUESSES[NPARS] = { 1E-3,    40.2,    1.0,   1.0, 1.08687e+04, 1.01024
 double PAR_MIN[NPARS]     = {    0,     0.0,    0.0,   0.0,           0,       -9999,       -9999,        -9999,       -9999,        -9999, -100, -100, -100, -100, -100, -100 };
 double PAR_MAX[NPARS]     = {  1E3,     5E3,    2.0,   2.0,         1E6,        9999,        9999,         9999,        9999,         9999,  100,  100,  100,  100,  100,  100 };
 double PAR_ERR[NPARS]     = { 1E-3,    4.02,   0.05,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
-int PAR_TYPE[NPARS]       = {    1,       2,      2,     2,           0,           0,           0,            3,           0,            0,    3,    3,    3,    3,    3,    3 }; // // 1,2 = signal (2 not used in the fit); 0,3 = background (3 not used in the fit)
-int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,           0,           0,            0,           0,            0,    4,    4,    4,    0,    4,    4 }; // 0 = not varied, >=1 = nuisance parameters with different priors (1 = Lognormal, 2 = Gaussian, 3 = Gamma, >=4 = Uniform)
+int PAR_TYPE[NPARS]       = {    1,       2,      2,     2,           3,           0,           0,            3,           0,            0,    3,    3,    3,    3,    3,    3 }; // // 1,2 = signal (2 not used in the fit); 0,3 = background (3 not used in the fit)
+//int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,           0,           0,            0,           0,            0,    4,    4,    4,    0,    4,    4 }; // 0 = not varied, >=1 = nuisance parameters with different priors (1 = Lognormal, 2 = Gaussian, 3 = Gamma, >=4 = Uniform)
 
 //int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,          0,            0,           0,            0,           0,            0,    4,    4,    4,    4,    4,    4 }; // all (same as above)
 //int PAR_NUIS[NPARS]       = {    0,       0,      0,     0,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // none
@@ -93,7 +93,7 @@ int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,        
 //int PAR_NUIS[NPARS]       = {    0,       0,      1,     0,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // jes only
 //int PAR_NUIS[NPARS]       = {    0,       0,      0,     1,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // jer only
 //int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // all except background
-//int PAR_NUIS[NPARS]       = {    0,       0,      0,     0,          0,            0,           0,            0,           0,            0,    4,    4,    4,    4,    4,    4 }; // background only
+int PAR_NUIS[NPARS]       = {    0,       0,      0,     0,          0,            0,           0,            0,           0,            0,    4,    0,    0,    4,    4,    4 }; // background only
 
 //
 // End of User Section 1
@@ -405,7 +405,7 @@ int main(int argc, char* argv[])
   if(calcSig) cout << "Significance(data) = " << ( nll_Diff_data>0 ? sign_data*sqrt(2*nll_Diff_data) : 0. ) << endl;
 
   // calculate eigenvalues and eigenvectors
-  for(int i = 0; i<NBKGPARS; ++i) { for(int j = 0; j<NBKGPARS; ++j) { covMatrix(i,j)=COV_MATRIX[i+shift][j+shift]; } }
+  for(int i = 0; i<(NBKGPARS-2); ++i) { for(int j = 0; j<(NBKGPARS-2); ++j) { covMatrix(i+1,j+1)=COV_MATRIX[i+shift][j+shift]; } } covMatrix(0,0)=1; covMatrix(3,3)=1;
   //covMatrix.Print();
   const TMatrixDSymEigen eigen_data(covMatrix);
   eigenValues = eigen_data.GetEigenValues();
