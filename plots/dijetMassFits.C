@@ -137,7 +137,7 @@ void performFit(const string& fInputFile, const string& fPlot,  const Int_t fNbi
   l1.SetNDC();
   l1.SetTextSize(0.03);
   l1.DrawLatex(0.17,0.43, "CMS Preliminary");
-  l1.DrawLatex(0.17,0.37, "#intLdt = 40.2 pb^{-1}");
+  l1.DrawLatex(0.17,0.37, "#intLdt = 41.8 pb^{-1}");
   l1.DrawLatex(0.17,0.33, "#sqrt{s} = 13 TeV");
   l1.DrawLatex(0.17,0.25, fLabel.c_str());
   
@@ -232,7 +232,7 @@ void drawFit(const string& fInputFile, const string& fPlot, const Int_t fNbins, 
   l1.SetNDC();
   l1.SetTextSize(0.03);
   l1.DrawLatex(0.17,0.43, "CMS Preliminary");
-  l1.DrawLatex(0.17,0.37, "#intLdt = 40.2 pb^{-1}");
+  l1.DrawLatex(0.17,0.37, "#intLdt = 41.8 pb^{-1}");
   l1.DrawLatex(0.17,0.33, "#sqrt{s} = 13 TeV");
   l1.DrawLatex(0.17,0.25, fLabel.c_str());
 
@@ -255,17 +255,17 @@ void makePlots()
                        7589, 7866, 8152, 8447, 8752, 9067, 9391, 9726, 10072,
                        10430 };
 
-  performFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_40p2_invpb.root",
+  performFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_L2L3Residuals_41p8_invpb.root",
              "h_dat", 54, xbins, 1118, 10430, "M_{jj}>1118 GeV",
-             "DijetMass_4ParFit_Run2_13TeV_DATA_40p2_invpb.eps", 0, 4.00421e-04, 1.07566e+01, 5.15889e+00,  0.00000e+00);
+             "DijetMass_3ParFit_Run2_13TeV_DATA_41p8_invpb.eps", 0, 8.62449e-04, 1.02685e+01, 5.00842e+00,  0.00000e+00);
 
-  drawFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_40p2_invpb.root",
+  drawFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_L2L3Residuals_41p8_invpb.root",
           "h_dat", 54, xbins, 1118, 10430, "M_{jj}>1118 GeV",
-          "DijetMass_Draw3ParFit_Run2_13TeV_DATA_40p2_invpb.eps", 0, 3.69833e-04, 1.02672e+01, 5.21046e+00,  0.00000e+00);
+          "DijetMass_Draw3ParFit_Run2_13TeV_DATA_41p8_invpb.eps", 0, 7.00252e-04, 9.78477e+00, 5.07650e+00,  0.00000e+00);
 
-  drawFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_40p2_invpb.root",
+  drawFit("Data_and_ResonanceShapes/histo_data_mjj_fromTree_finalJSON_25_07_15_JEC_Summer15_50nsV2_L2L3Residuals_41p8_invpb.root",
           "h_dat", 54, xbins, 1118, 10430, "M_{jj}>1118 GeV",
-          "DijetMass_Draw4ParFit_Run2_13TeV_DATA_40p2_invpb.eps", 0, 2.43942e-06, 4.50933e+00, 8.43813e+00,  5.68458e-01);
+          "DijetMass_Draw4ParFit_Run2_13TeV_DATA_41p8_invpb.eps", 0, 3.15367e-06, 3.65785e+00, 8.56811e+00,  6.18361e-01);
 
 }
 
