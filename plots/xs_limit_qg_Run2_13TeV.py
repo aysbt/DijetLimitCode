@@ -147,12 +147,25 @@ xsString = array('d', [8316.184311558545,5312.93137758767,3435.0309937336524,230
 massesQstar = array('d', [1000.0,1100.0,1200.0,1300.0,1400.0,1500.0,1600.0,1700.0,1800.0,1900.0,2000.0,2100.0,2200.0,2300.0,2400.0,2500.0,2600.0,2700.0,2800.0,2900.0,3000.0,3100.0,3200.0,3300.0,3400.0,3500.0,3600.0,3700.0,3800.0,3900.0,4000.0,4100.0,4200.0,4300.0,4400.0,4500.0,4600.0,4700.0,4800.0,4900.0,5000.0,5100.0,5200.0,5300.0,5400.0,5500.0,5600.0,5700.0,5800.0,5900.0,6000.0,6100.0,6200.0,6300.0,6400.0,6500.0,6600.0,6700.0,6800.0,6900.0,7000.0,7100.0,7200.0,7300.0,7400.0,7500.0,7600.0,7700.0,7800.0,7900.0,8000.0,8100.0,8200.0,8300.0,8400.0,8500.0,8600.0,8700.0,8800.0,8900.0,9000.0])
 xsQstar = array('d', [0.4101E+03,0.2620E+03,0.1721E+03,0.1157E+03,0.7934E+02,0.5540E+02,0.3928E+02,0.2823E+02,0.2054E+02,0.1510E+02,0.1121E+02,0.8390E+01,0.6328E+01,0.4807E+01,0.3674E+01,0.2824E+01,0.2182E+01,0.1694E+01,0.1320E+01,0.1033E+01,0.8116E+00,0.6395E+00,0.5054E+00,0.4006E+00,0.3182E+00,0.2534E+00,0.2022E+00,0.1616E+00,0.1294E+00,0.1038E+00,0.8333E-01,0.6700E-01,0.5392E-01,0.4344E-01,0.3503E-01,0.2827E-01,0.2283E-01,0.1844E-01,0.1490E-01,0.1205E-01,0.9743E-02,0.7880E-02,0.6373E-02,0.5155E-02,0.4169E-02,0.3371E-02,0.2725E-02,0.2202E-02,0.1779E-02,0.1437E-02,0.1159E-02,0.9353E-03,0.7541E-03,0.6076E-03,0.4891E-03,0.3935E-03,0.3164E-03,0.2541E-03,0.2039E-03,0.1635E-03,0.1310E-03,0.1049E-03,0.8385E-04,0.6699E-04,0.5347E-04,0.4264E-04,0.3397E-04,0.2704E-04,0.2151E-04,0.1709E-04,0.1357E-04,0.1077E-04,0.8544E-05,0.6773E-05,0.5367E-05,0.4251E-05,0.3367E-05,0.2666E-05,0.2112E-05,0.1673E-05,0.1326E-05])
 
-graph_xsString = TGraph(len(massesString),massesString,xsString)
+xs_max = 6e+01
+idx = 0
+
+for i, xs in enumerate(xsString):
+  if xs < xs_max:
+    idx = i
+    break
+
+graph_xsString = TGraph(len(massesString[idx:-1]),massesString[idx:-1],xsString[idx:-1])
 graph_xsString.SetLineWidth(3)
 graph_xsString.SetLineStyle(8)
 graph_xsString.SetLineColor(9)
 
-graph_xsQstar = TGraph(len(massesQstar),massesQstar,xsQstar)
+for i, xs in enumerate(xsQstar):
+  if xs < xs_max:
+    idx = i
+    break
+
+graph_xsQstar = TGraph(len(massesQstar[idx:-1]),massesQstar[idx:-1],xsQstar[idx:-1])
 graph_xsQstar.SetLineWidth(3)
 graph_xsQstar.SetLineStyle(2)
 graph_xsQstar.SetLineColor(1)
@@ -162,7 +175,7 @@ graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("qg resonance mass [GeV]")
 graph_exp_2sigma.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
 graph_exp_2sigma.GetYaxis().SetTitleOffset(1.1)
-graph_exp_2sigma.GetYaxis().SetRangeUser(5e-02,3e+02)
+graph_exp_2sigma.GetYaxis().SetRangeUser(5e-02,2e+02)
 #graph_exp_2sigma.GetXaxis().SetNdivisions(1005)
 
 graph_exp_1sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_1sigma)

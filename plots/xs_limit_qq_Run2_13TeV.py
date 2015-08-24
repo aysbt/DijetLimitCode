@@ -146,7 +146,15 @@ xsDiquark = array('d', [0.5824E+02,0.4250E+02,0.3172E+02,0.2411E+02,0.1862E+02,0
 xsWprime = array('d', [0.8811E+01,0.6024E+01,0.4216E+01,0.3010E+01,0.2185E+01,0.1610E+01,0.1200E+01,0.9043E+00,0.6875E+00,0.5271E+00,0.4067E+00,0.3158E+00,0.2464E+00,0.1932E+00,0.1521E+00,0.1201E+00,0.9512E-01,0.7554E-01,0.6012E-01,0.4792E-01,0.3827E-01,0.3059E-01,0.2448E-01,0.1960E-01,0.1571E-01,0.1259E-01,0.1009E-01,0.8090E-02,0.6483E-02,0.5193E-02,0.4158E-02,0.3327E-02,0.2660E-02,0.2125E-02,0.1695E-02,0.1351E-02,0.1075E-02,0.8546E-03,0.6781E-03,0.5372E-03,0.4248E-03,0.3353E-03,0.2642E-03,0.2077E-03,0.1629E-03,0.1275E-03,0.9957E-04,0.7757E-04,0.6027E-04,0.4670E-04,0.3610E-04,0.2783E-04,0.2140E-04,0.1641E-04,0.1254E-04,0.9561E-05,0.7269E-05,0.5510E-05,0.4167E-05,0.3143E-05,0.2364E-05,0.1774E-05,0.1329E-05,0.9931E-06,0.7411E-06,0.5523E-06,0.4108E-06,0.3055E-06,0.2271E-06,0.1687E-06,0.1254E-06,0.9327E-07,0.6945E-07,0.5177E-07,0.3863E-07,0.2888E-07,0.2162E-07,0.1622E-07,0.1218E-07,0.9156E-08,0.6893E-08])
 xsZprime = array('d', [0.5027E+01,0.3398E+01,0.2353E+01,0.1663E+01,0.1196E+01,0.8729E+00,0.6450E+00,0.4822E+00,0.3638E+00,0.2769E+00,0.2123E+00,0.1639E+00,0.1272E+00,0.9933E-01,0.7789E-01,0.6134E-01,0.4848E-01,0.3845E-01,0.3059E-01,0.2440E-01,0.1952E-01,0.1564E-01,0.1256E-01,0.1010E-01,0.8142E-02,0.6570E-02,0.5307E-02,0.4292E-02,0.3473E-02,0.2813E-02,0.2280E-02,0.1848E-02,0.1499E-02,0.1216E-02,0.9864E-03,0.8002E-03,0.6490E-03,0.5262E-03,0.4264E-03,0.3453E-03,0.2795E-03,0.2260E-03,0.1826E-03,0.1474E-03,0.1188E-03,0.9566E-04,0.7690E-04,0.6173E-04,0.4947E-04,0.3957E-04,0.3159E-04,0.2516E-04,0.2001E-04,0.1587E-04,0.1255E-04,0.9906E-05,0.7795E-05,0.6116E-05,0.4785E-05,0.3731E-05,0.2900E-05,0.2247E-05,0.1734E-05,0.1334E-05,0.1022E-05,0.7804E-06,0.5932E-06,0.4492E-06,0.3388E-06,0.2544E-06,0.1903E-06,0.1417E-06,0.1051E-06,0.7764E-07,0.5711E-07,0.4186E-07,0.3055E-07,0.2223E-07,0.1612E-07,0.1164E-07,0.8394E-08])
 
-graph_xsAxi = TGraph(len(massesTh),massesTh,xsAxi)
+xs_max = 6e+01
+idx = 0
+
+for i, xs in enumerate(xsAxi):
+  if xs < xs_max:
+    idx = i
+    break
+
+graph_xsAxi = TGraph(len(massesTh[idx:-1]),massesTh[idx:-1],xsAxi[idx:-1])
 graph_xsAxi.SetLineWidth(3)
 graph_xsAxi.SetLineStyle(3)
 graph_xsAxi.SetLineColor(63)
@@ -154,7 +162,7 @@ graph_xsAxi.SetLineColor(63)
 graph_xsDiquark = TGraph(len(massesTh),massesTh,xsDiquark)
 graph_xsDiquark.SetLineWidth(3)
 graph_xsDiquark.SetLineStyle(9)
-graph_xsDiquark.SetLineColor(8)
+graph_xsDiquark.SetLineColor(42)
 
 graph_xsWprime = TGraph(len(massesTh),massesTh,xsWprime)
 graph_xsWprime.SetLineWidth(3)
@@ -171,7 +179,7 @@ graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("qq resonance mass [GeV]")
 graph_exp_2sigma.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
 graph_exp_2sigma.GetYaxis().SetTitleOffset(1.1)
-graph_exp_2sigma.GetYaxis().SetRangeUser(5e-02,3e+02)
+graph_exp_2sigma.GetYaxis().SetRangeUser(5e-02,2e+02)
 #graph_exp_2sigma.GetXaxis().SetNdivisions(1005)
 
 graph_exp_1sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_1sigma)
