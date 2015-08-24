@@ -20,8 +20,8 @@ gStyle.SetPadTickX(1)
 gStyle.SetPadTickY(1)
 gStyle.SetPadLeftMargin(0.15)
 gStyle.SetPadRightMargin(0.05)
-gStyle.SetPadTopMargin(0.05)
-gStyle.SetPadBottomMargin(0.15)
+gStyle.SetPadTopMargin(0.06)
+gStyle.SetPadBottomMargin(0.14)
 gROOT.ForceStyle()
 
 
@@ -109,7 +109,7 @@ graph_sig.Draw("ALP")
 
 # draw the lumi text on the canvas
 CMS_lumi.extraText = "Preliminary"
-CMS_lumi.lumi_sqrtS = "41.8 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
+CMS_lumi.lumi_sqrtS = "42 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 iPeriod = 0
 
@@ -119,4 +119,4 @@ gPad.RedrawAxis()
 
 c.SetGridx()
 c.SetGridy()
-c.SaveAs('significance_DijetLimitCode_qg_Run2_13TeV_DATA_41p8_invpb.eps')
+c.SaveAs('significance_DijetLimitCode_qg_Run2_13TeV_DATA_42_invpb.eps')

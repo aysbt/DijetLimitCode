@@ -20,8 +20,8 @@ gStyle.SetPadTickX(1)
 gStyle.SetPadTickY(1)
 gStyle.SetPadLeftMargin(0.15)
 gStyle.SetPadRightMargin(0.05)
-gStyle.SetPadTopMargin(0.05)
-gStyle.SetPadBottomMargin(0.15)
+gStyle.SetPadTopMargin(0.06)
+gStyle.SetPadBottomMargin(0.14)
 gROOT.ForceStyle()
 
 
@@ -71,7 +71,7 @@ legend.SetBorderSize(0)
 legend.SetFillColor(0)
 legend.SetFillStyle(0)
 legend.SetTextFont(42)
-legend.SetTextSize(0.03)
+legend.SetTextSize(0.035)
 legend.AddEntry(g_all_exp, "All / Stat. only (expected)","lp")
 legend.AddEntry(g_all, "All / Stat. only (observed)","lp")
 
@@ -90,7 +90,7 @@ legend.Draw()
 
 #draw the lumi text on the canvas
 CMS_lumi.extraText = "Preliminary"
-CMS_lumi.lumi_sqrtS = "41.8 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
+CMS_lumi.lumi_sqrtS = "42 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 iPeriod = 0
 
@@ -99,4 +99,4 @@ CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 c.SetGridx()
 c.SetGridy()
 
-c.SaveAs('xs_limit_ratio_DijetLimitCode_gg_Run2_13TeV_DATA_41p8_invpb.eps')
+c.SaveAs('xs_limit_ratio_DijetLimitCode_gg_Run2_13TeV_DATA_42_invpb.eps')
