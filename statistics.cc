@@ -45,7 +45,10 @@ std::pair<double, double> evaluateInterval(TGraph* posterior, double alpha, doub
     }
     if(integral<=upperCutOff && (integral+intervalIntegral)>=upperCutOff) {
       double m=(nexty-firsty)/(nextx-firstx);
-      upper = firstx+(-firsty+sqrt(firsty*firsty+2*m*(upperCutOff-integral)*normalization))/m;
+      if(m != 0.)
+        upper = firstx+(-firsty+sqrt(firsty*firsty+2*m*(upperCutOff-integral)*normalization))/m;
+      else
+        upper = firstx+(upperCutOff-integral)*normalization/firsty;
     }
     integral+=intervalIntegral;
   }
