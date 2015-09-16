@@ -33,7 +33,7 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 
 // use Markov chain Monte Carlo (MCMC) to marginalize nuisance parameters
-const int useMCMC = 1;
+const int useMCMC = 0;
 // IMPORTANT: With useMCMC = 1, the systematic uncertanties are included in the limit calculation by default. Use the PAR_NUIS[] array below to control what uncertainties are included
 
 // number of samples of nuisance parameters for Bayesian MC integration
