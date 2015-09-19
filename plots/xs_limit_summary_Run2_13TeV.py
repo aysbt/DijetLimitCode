@@ -235,9 +235,9 @@ legendTh.AddEntry(graph_xsQstar,"Excited quark","l")
 legendTh.AddEntry(graph_xsAxi,"Axigluon/coloron","l")
 legendTh.AddEntry(graph_xsDiquark,"Scalar diquark","l")
 legendTh.AddEntry(graph_xsS8,"S8","l")
-legendTh.AddEntry(graph_xsWprime,"W' SSM","l")
-legendTh.AddEntry(graph_xsZprime,"Z' SSM","l")
-legendTh.AddEntry(graph_xsRSG,"RS graviton (k/M=0.1)","l")
+legendTh.AddEntry(graph_xsWprime,"W'","l")
+legendTh.AddEntry(graph_xsZprime,"Z'","l")
+legendTh.AddEntry(graph_xsRSG,"RS graviton","l")
 legendTh.Draw()
 
 #draw the lumi text on the canvas
