@@ -80,20 +80,20 @@ const int NPARS=16;
 const int NBKGPARS=(use6ParFit ? 6 : 4);
 const int POIINDEX=0; // which parameter is "of interest"
 string PAR_NAMES[NPARS]   = { "xs",  "lumi",  "jes", "jer",        "p0",        "p1",        "p2",         "p3",        "p4",         "p5", "n0", "n1", "n2", "n3", "n4", "n5" };
-double PAR_GUESSES[NPARS] = { 1E-3,      65,    1.0,   1.0, 5.07742e-04, 8.15115e+00, 5.30608e+00,  0.00000e+00,          0.,           0.,    0,    0,    0,    0,    0,    0 };
+double PAR_GUESSES[NPARS] = { 1E-3,     547,    1.0,   1.0, 9.23048e-04, 7.04636e+00, 6.44853e+00,  2.39244e-01,          0.,           0.,    0,    0,    0,    0,    0,    0 };
 double PAR_MIN[NPARS]     = {    0,     0.0,    0.0,   0.0,        -1E4,       -9999,       -9999,        -9999,       -9999,        -9999, -100, -100, -100, -100, -100, -100 };
 double PAR_MAX[NPARS]     = {  1E3,     5E3,    2.0,   2.0,         1E4,        9999,        9999,         9999,        9999,         9999,  100,  100,  100,  100,  100,  100 };
-double PAR_ERR[NPARS]     = { 1E-3,     7.8,   0.02,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
-int PAR_TYPE[NPARS]       = {    1,       2,      2,     2,           0,           0,           0,            3,           0,            0,    3,    3,    3,    3,    3,    3 }; // // 1,2 = signal (2 not used in the fit); 0,3 = background (3 not used in the fit)
-int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,           0,           0,            0,           0,            0,    4,    4,    4,    0,    4,    4 }; // 0 = not varied, >=1 = nuisance parameters with different priors (1 = Lognormal, 2 = Gaussian, 3 = Gamma, >=4 = Uniform)
+double PAR_ERR[NPARS]     = { 1E-3,   65.64,   0.02,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
+int PAR_TYPE[NPARS]       = {    1,       2,      2,     2,           0,           0,           0,            0,           0,            0,    3,    3,    3,    3,    3,    3 }; // // 1,2 = signal (2 not used in the fit); 0,3 = background (3 not used in the fit)
+int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,           0,           0,           0,            0,           0,            0,    4,    4,    4,    4,    4,    4 }; // 0 = not varied, >=1 = nuisance parameters with different priors (1 = Lognormal, 2 = Gaussian, 3 = Gamma, >=4 = Uniform)
 
-//int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,          0,            0,           0,            0,           0,            0,    4,    4,    4,    0,    4,    4 }; // all (same as above)
+//int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,          0,            0,           0,            0,           0,            0,    4,    4,    4,    4,    4,    4 }; // all (same as above)
 //int PAR_NUIS[NPARS]       = {    0,       0,      0,     0,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // none
 //int PAR_NUIS[NPARS]       = {    0,       1,      0,     0,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // lumi only
 //int PAR_NUIS[NPARS]       = {    0,       0,      1,     0,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // jes only
 //int PAR_NUIS[NPARS]       = {    0,       0,      0,     1,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // jer only
 //int PAR_NUIS[NPARS]       = {    0,       1,      1,     1,          0,            0,           0,            0,           0,            0,    0,    0,    0,    0,    0,    0 }; // all except background
-//int PAR_NUIS[NPARS]       = {    0,       0,      0,     0,          0,            0,           0,            0,           0,            0,    4,    4,    4,    0,    4,    4 }; // background only
+//int PAR_NUIS[NPARS]       = {    0,       0,      0,     0,          0,            0,           0,            0,           0,            0,    4,    4,    4,    4,    4,    4 }; // background only
 
 //
 // End of User Section 1
@@ -322,7 +322,7 @@ int main(int argc, char* argv[])
   //
 
   // input data file
-  INPUTFILES.push_back("Data_and_ResonanceShapes/histo_data_mjj_fromTree_Run2015B_plus_Run2015C_50ns_Cert_json_29Aug2015_65_invpb.root");
+  INPUTFILES.push_back("Data_and_ResonanceShapes/histo_data_mjj_Run2015D_golden_547invpb_JEC_Summer15_25nsV5.root");
 
   // data histogram name
   string datahistname = "h_dat";

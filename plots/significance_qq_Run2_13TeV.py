@@ -84,7 +84,7 @@ mass_max = 7000
 ##------------------------------------------------------
 
 masses = array('d', [1500.0, 1600.0, 1700.0, 1800.0, 1900.0, 2000.0, 2100.0, 2200.0, 2300.0, 2400.0, 2500.0, 2600.0, 2700.0, 2800.0, 2900.0, 3000.0, 3100.0, 3200.0, 3300.0, 3400.0, 3500.0, 3600.0, 3700.0, 3800.0, 3900.0, 4000.0, 4100.0, 4200.0, 4300.0, 4400.0, 4500.0, 4600.0, 4700.0, 4800.0, 4900.0, 5000.0, 5100.0, 5200.0, 5300.0, 5400.0, 5500.0, 5600.0, 5700.0, 5800.0, 5900.0, 6000.0, 6100.0, 6200.0, 6300.0, 6400.0, 6500.0, 6600.0, 6700.0, 6800.0, 6900.0, 7000.0])
-significances = array('d', [1.68015, 1.19312, 0.0251314, 0.0, 0.0, 0.0, 0.0, 0.149883, 0.191639, 0.512064, 1.26599, 1.49123, 0.947955, 0.0, 0.0, 0.474483, 1.28775, 1.49377, 1.10807, 0.507491, 0.285385, 0.310366, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.270343, 0.534931, 0.741174, 0.874909, 0.920858, 0.867907, 0.701125, 0.431162, 0.0977766, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+significances = array('d', [0.0, 0.483498, 2.06966, 1.95327, 1.02177, 0.0, 0.0, 0.0, 0.0, 0.279812, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.830699, 1.64842, 2.09031, 2.47358, 3.09901, 3.81641, 4.20794, 4.02995, 3.26448, 2.12542, 0.870513, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.205089, 0.37097, 0.362366, 0.185219, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
 ##------------------------------------------------------
 
@@ -92,7 +92,7 @@ graph_sig = TGraph(len(masses),masses,significances)
 graph_sig.GetXaxis().SetTitle("qq resonance mass [GeV]")
 graph_sig.GetYaxis().SetTitle("Significance (local)")
 graph_sig.GetYaxis().SetTitleOffset(1.2)
-graph_sig.GetYaxis().SetRangeUser(0.,2.5)
+graph_sig.GetYaxis().SetRangeUser(0.,5.0)
 graph_sig.SetLineWidth(2)
 graph_sig.SetLineColor(kRed)
 graph_sig.SetMarkerStyle(21)
@@ -109,7 +109,7 @@ graph_sig.Draw("ALP")
 
 # draw the lumi text on the canvas
 CMS_lumi.extraText = "Preliminary"
-CMS_lumi.lumi_sqrtS = "65 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
+CMS_lumi.lumi_sqrtS = "547 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 iPeriod = 0
 
@@ -119,4 +119,4 @@ gPad.RedrawAxis()
 
 c.SetGridx()
 c.SetGridy()
-c.SaveAs('significance_DijetLimitCode_qq_Run2_13TeV_DATA_65_invpb.eps')
+c.SaveAs('significance_DijetLimitCode_qq_Run2_13TeV_DATA_547_invpb.eps')
