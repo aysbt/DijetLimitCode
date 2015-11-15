@@ -95,7 +95,7 @@ defines the number of pseudo-experiments per job and NJOBS defines the number of
 number of pseudo-experiments per mass point will be NPES*NJOBS. If NPES is not specified, the hardcoded value
 will be used. If NJOBS is not specified, only one job per mass point will be run. A possible example is
 
-jobs/submit_condor_jobs.py qg 1200 7000 100 20 10
+jobs/submit_condor_jobs.py qg 1500 7000 100 20 10
 
 which will run limits for qg resonances starting from a mass point at 1.2 TeV going up to 7 TeV in steps of 100 GeV.
 10 jobs per mass point will be created each running 20 pseudo-experiments resulting in a total of 200 pseudo-experiments
@@ -107,7 +107,7 @@ jobs/combine_output.py FINAL_STATE MASS_MIN MASS_MAX STEP
 
 or for the above example
 
-jobs/combine_output.py qg 1200 7000 100
+jobs/combine_output.py qg 1500 7000 100
 
 Finally, to clean up your working directly from Condor files that are no longer needed, execute:
 
