@@ -136,7 +136,7 @@ graph_sig = TGraphAsymmErrors(len(masses),masses,sig_pos,sig_exl,sig_exh,sig_eyl
 graph_sig.GetXaxis().SetTitle("gg resonance mass [GeV]")
 graph_sig.GetYaxis().SetTitle("Signal cross section [pb]")
 graph_sig.GetYaxis().SetTitleOffset(1.2)
-graph_sig.GetYaxis().SetRangeUser(1e-4,1e2)
+graph_sig.GetYaxis().SetRangeUser(1e-4,1e1)
 graph_sig.SetMarkerStyle(20)
 graph_sig.SetMarkerColor(1)
 graph_sig.SetLineWidth(2)
@@ -150,7 +150,7 @@ graph_sig.Draw("AP")
 
 #draw the lumi text on the canvas
 CMS_lumi.extraText = "Preliminary"
-CMS_lumi.lumi_sqrtS = "2445 pb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
+CMS_lumi.lumi_sqrtS = "2.4 fb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 iPeriod = 0
 
