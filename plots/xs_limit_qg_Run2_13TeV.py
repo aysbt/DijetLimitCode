@@ -3,6 +3,7 @@
 import sys, os, subprocess, string, re
 from ROOT import *
 from array import array
+import numpy as np
 import CMS_lumi
 
 
@@ -36,6 +37,9 @@ xs_exp_limits_2sigma_up = array('d')
 
 syst = True
 #syst = False
+
+useTeV = True
+#useTeV = False
 
 mass_min = 1500
 mass_max = 7200
@@ -154,6 +158,12 @@ for i, xs in enumerate(xsString):
     idx = i
     break
 
+if useTeV:
+  masses = array('d',(np.array(masses.tolist())/1000.).tolist())
+  masses_exp = array('d',(np.array(masses_exp.tolist())/1000.).tolist())
+  massesString = array('d',(np.array(massesString.tolist())/1000.).tolist())
+  massesQstar = array('d',(np.array(massesQstar.tolist())/1000.).tolist())
+
 graph_xsString = TGraph(len(massesString[idx:-1]),massesString[idx:-1],xsString[idx:-1])
 graph_xsString.SetLineWidth(3)
 graph_xsString.SetLineStyle(8)
@@ -172,6 +182,8 @@ graph_xsQstar.SetLineColor(1)
 graph_exp_2sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_2sigma)
 graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("qg resonance mass [GeV]")
+if useTeV:
+  graph_exp_2sigma.GetXaxis().SetTitle("qg resonance mass [TeV]")
 graph_exp_2sigma.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
 graph_exp_2sigma.GetYaxis().SetTitleOffset(1.1)
 graph_exp_2sigma.GetYaxis().SetRangeUser(1e-03,1e+02)

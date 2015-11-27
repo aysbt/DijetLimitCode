@@ -3,6 +3,7 @@
 import sys, os, subprocess, string, re
 from ROOT import *
 from array import array
+import numpy as np
 import CMS_lumi
 
 
@@ -36,6 +37,9 @@ xs_exp_limits_2sigma_up = array('d')
 
 syst = True
 #syst = False
+
+useTeV = True
+#useTeV = False
 
 mass_min = 1500
 mass_max = 7200
@@ -150,6 +154,11 @@ for i, xs in enumerate(xsS8):
     idx = i
     break
 
+if useTeV:
+  masses = array('d',(np.array(masses.tolist())/1000.).tolist())
+  masses_exp = array('d',(np.array(masses_exp.tolist())/1000.).tolist())
+  massesS8 = array('d',(np.array(massesS8.tolist())/1000.).tolist())
+
 graph_xsS8 = TGraph(len(massesS8[idx:-1]),massesS8[idx:-1],xsS8[idx:-1])
 graph_xsS8.SetLineWidth(3)
 graph_xsS8.SetLineStyle(8)
@@ -158,6 +167,8 @@ graph_xsS8.SetLineColor(6)
 graph_exp_2sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_2sigma)
 graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("gg resonance mass [GeV]")
+if useTeV:
+  graph_exp_2sigma.GetXaxis().SetTitle("gg resonance mass [TeV]")
 graph_exp_2sigma.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
 graph_exp_2sigma.GetYaxis().SetTitleOffset(1.1)
 graph_exp_2sigma.GetYaxis().SetRangeUser(1e-03,1e+02)

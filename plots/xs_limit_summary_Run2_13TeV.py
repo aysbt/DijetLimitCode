@@ -3,6 +3,7 @@
 import sys, os, subprocess, string, re
 from ROOT import *
 from array import array
+import numpy as np
 import CMS_lumi
 
 
@@ -36,6 +37,9 @@ xs_exp_limits_2sigma_up = array('d')
 
 syst = True
 #syst = False
+
+useTeV = True
+#useTeV = False
 
 masses = array('d', [1500.0, 1600.0, 1700.0, 1800.0, 1900.0, 2000.0, 2100.0, 2200.0, 2300.0, 2400.0, 2500.0, 2600.0, 2700.0, 2800.0, 2900.0, 3000.0, 3100.0, 3200.0, 3300.0, 3400.0, 3500.0, 3600.0, 3700.0, 3800.0, 3900.0, 4000.0, 4100.0, 4200.0, 4300.0, 4400.0, 4500.0, 4600.0, 4700.0, 4800.0, 4900.0, 5000.0, 5100.0, 5200.0, 5300.0, 5400.0, 5500.0, 5600.0, 5700.0, 5800.0, 5900.0, 6000.0, 6100.0, 6200.0, 6300.0, 6400.0, 6500.0, 6600.0, 6700.0, 6800.0, 6900.0, 7000.0, 7100.0, 7200.0])
 
@@ -83,6 +87,14 @@ for i, xs in enumerate(xsAxi):
   if xs < xs_max:
     idx = i
     break
+
+if useTeV:
+  masses = array('d',(np.array(masses.tolist())/1000.).tolist())
+  masses_exp = array('d',(np.array(masses_exp.tolist())/1000.).tolist())
+  massesTh = array('d',(np.array(massesTh.tolist())/1000.).tolist())
+  massesS8 = array('d',(np.array(massesS8.tolist())/1000.).tolist())
+  massesString = array('d',(np.array(massesString.tolist())/1000.).tolist())
+  massesQstar = array('d',(np.array(massesQstar.tolist())/1000.).tolist())
 
 graph_xsAxi = TGraph(len(massesTh[idx:-1]),massesTh[idx:-1],xsAxi[idx:-1])
 graph_xsAxi.SetLineWidth(3)
@@ -163,6 +175,8 @@ graph_obs_gg.SetLineWidth(3)
 #graph_obs_gg.SetLineStyle(1)
 graph_obs_gg.SetLineColor(TColor.GetColor("#006600"))
 graph_obs_gg.GetXaxis().SetTitle("Resonance mass [GeV]")
+if useTeV:
+  graph_obs_gg.GetXaxis().SetTitle("Resonance mass [TeV]")
 graph_obs_gg.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
 graph_obs_gg.GetYaxis().SetTitleOffset(1.1)
 graph_obs_gg.GetYaxis().SetRangeUser(1e-03,1e+02)
