@@ -123,7 +123,7 @@ graph_xsZprime.SetLineColor(38)
 
 graph_xsRSG = TGraph(len(massesTh),massesTh,xsRSG)
 graph_xsRSG.SetLineWidth(3)
-graph_xsRSG.SetLineStyle(9)
+graph_xsRSG.SetLineStyle(4)
 graph_xsRSG.SetLineColor(30)
 
 for i, xs in enumerate(xsString):
@@ -153,7 +153,7 @@ for i, xs in enumerate(xsS8):
 
 graph_xsS8 = TGraph(len(massesS8[idx:-1]),massesS8[idx:-1],xsS8[idx:-1])
 graph_xsS8.SetLineWidth(3)
-graph_xsS8.SetLineStyle(8)
+graph_xsS8.SetLineStyle(6)
 graph_xsS8.SetLineColor(6)
 
 
@@ -238,7 +238,7 @@ legend.AddEntry(graph_exp_qg,"quark-gluon","lp")
 legend.AddEntry(graph_exp_qq,"quark-quark","lp")
 legend.Draw()
 
-legendTh = TLegend(.63,.64,.93,.90)
+legendTh = TLegend(.63,.64,.98,.90)
 legendTh.SetBorderSize(0)
 legendTh.SetFillColor(0)
 legendTh.SetFillStyle(0)

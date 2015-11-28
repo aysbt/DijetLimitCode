@@ -161,7 +161,7 @@ if useTeV:
 
 graph_xsS8 = TGraph(len(massesS8[idx:-1]),massesS8[idx:-1],xsS8[idx:-1])
 graph_xsS8.SetLineWidth(3)
-graph_xsS8.SetLineStyle(8)
+graph_xsS8.SetLineStyle(6)
 graph_xsS8.SetLineColor(6)
 
 graph_exp_2sigma = TGraph(len(masses_exp),masses_exp,xs_exp_limits_2sigma)
