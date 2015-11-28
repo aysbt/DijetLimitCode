@@ -246,9 +246,9 @@ legendTh.SetTextFont(42)
 legendTh.SetTextSize(0.03)
 legendTh.SetMargin(0.20)
 legendTh.AddEntry(graph_xsString,"String","l")
+legendTh.AddEntry(graph_xsDiquark,"Scalar diquark","l")
 legendTh.AddEntry(graph_xsQstar,"Excited quark","l")
 legendTh.AddEntry(graph_xsAxi,"Axigluon/coloron","l")
-legendTh.AddEntry(graph_xsDiquark,"Scalar diquark","l")
 legendTh.AddEntry(graph_xsS8,"Color octet scalar","l")
 legendTh.AddEntry(graph_xsWprime,"W'","l")
 legendTh.AddEntry(graph_xsZprime,"Z'","l")
@@ -256,7 +256,8 @@ legendTh.AddEntry(graph_xsRSG,"RS graviton","l")
 legendTh.Draw()
 
 #draw the lumi text on the canvas
-CMS_lumi.extraText = "Preliminary"
+#CMS_lumi.extraText = "Preliminary"
+CMS_lumi.extraText = ""
 CMS_lumi.lumi_sqrtS = "2.4 fb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 if( iPos==0 ): CMS_lumi.relPosX = 0.15

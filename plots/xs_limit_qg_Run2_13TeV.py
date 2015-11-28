@@ -195,7 +195,7 @@ graph_exp_1sigma.SetFillColor(kGreen+1)
 graph_exp = TGraph(len(masses),masses,xs_exp_limits)
 #graph_exp.SetMarkerStyle(24)
 graph_exp.SetLineWidth(3)
-graph_exp.SetLineStyle(2)
+graph_exp.SetLineStyle(4)
 graph_exp.SetLineColor(4)
 
 graph_obs = TGraph(len(masses),masses,xs_obs_limits)
@@ -251,7 +251,8 @@ legendTh.Draw()
 #l1.DrawLatex(0.19,0.27, "#sqrt{s} = 13 TeV")
 
 # draw the lumi text on the canvas
-CMS_lumi.extraText = "Preliminary"
+#CMS_lumi.extraText = "Preliminary"
+CMS_lumi.extraText = ""
 CMS_lumi.lumi_sqrtS = "2.4 fb^{-1} (13 TeV)" # used with iPeriod = 0, e.g. for simulation-only plots (default is an empty string)
 iPos = 11
 if( iPos==0 ): CMS_lumi.relPosX = 0.15
