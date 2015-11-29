@@ -220,7 +220,7 @@ legendTh.SetFillStyle(0)
 legendTh.SetTextFont(42)
 legendTh.SetTextSize(0.035)
 legendTh.SetMargin(0.20)
-legendTh.AddEntry(graph_xsS8,"Color octet scalar","l")
+legendTh.AddEntry(graph_xsS8,"Color-octet scalar","l")
 legendTh.Draw()
 
 #l1 = TLatex()
