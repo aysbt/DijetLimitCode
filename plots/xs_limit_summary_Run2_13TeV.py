@@ -164,7 +164,7 @@ graph_exp_gg.SetLineWidth(3)
 #graph_exp_gg.SetLineStyle(2)
 graph_exp_gg.SetLineColor(TColor.GetColor("#006600"))
 #graph_exp_gg.GetXaxis().SetTitle("Resonance mass [GeV]")
-#graph_exp_gg.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
+#graph_exp_gg.GetYaxis().SetTitle("#sigma #it{B} #it{A} [pb]")
 #graph_exp_gg.GetYaxis().SetTitleOffset(1.1)
 #graph_exp_gg.GetYaxis().SetRangeUser(1e-02,1e+03)
 
@@ -177,7 +177,7 @@ graph_obs_gg.SetLineColor(TColor.GetColor("#006600"))
 graph_obs_gg.GetXaxis().SetTitle("Resonance mass [GeV]")
 if useTeV:
   graph_obs_gg.GetXaxis().SetTitle("Resonance mass [TeV]")
-graph_obs_gg.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
+graph_obs_gg.GetYaxis().SetTitle("#sigma #it{B} #it{A} [pb]")
 graph_obs_gg.GetYaxis().SetTitleOffset(1.1)
 graph_obs_gg.GetYaxis().SetRangeUser(1e-03,1e+02)
 

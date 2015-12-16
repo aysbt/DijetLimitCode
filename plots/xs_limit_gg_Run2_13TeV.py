@@ -169,7 +169,7 @@ graph_exp_2sigma.SetFillColor(kYellow)
 graph_exp_2sigma.GetXaxis().SetTitle("gg resonance mass [GeV]")
 if useTeV:
   graph_exp_2sigma.GetXaxis().SetTitle("gg resonance mass [TeV]")
-graph_exp_2sigma.GetYaxis().SetTitle("#sigma #times #it{B} #times #it{A} [pb]")
+graph_exp_2sigma.GetYaxis().SetTitle("#sigma #it{B} #it{A} [pb]")
 graph_exp_2sigma.GetYaxis().SetTitleOffset(1.1)
 graph_exp_2sigma.GetYaxis().SetRangeUser(1e-03,1e+02)
 #graph_exp_2sigma.GetXaxis().SetNdivisions(1005)
