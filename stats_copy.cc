@@ -73,79 +73,14 @@ double BOUNDARIES[NBINS+1] = {       1181, 1246, 1313, 1383, 1455, 1530, 1607, 1
                                5455, 5663, 5877, 6099, 6328, 6564, 6808, 7060, 7320,
                                7589, 7866, 8152, 8447, 8752, 9067, 9391, 9726, 10072,
                                10430 };
-// 4.35374e-03, 7.46697e+00, 6.37033e+00,  2.14709e-01
+
 // parameters
 double SIGMASS=0;
 const int NPARS=16;
 const int NBKGPARS=(use6ParFit ? 6 : 4);
 const int POIINDEX=0; // which parameter is "of interest"
 string PAR_NAMES[NPARS]   = { "xs",  "lumi",  "jes", "jer",        "p0",        "p1",        "p2",         "p3",        "p4",         "p5", "n0", "n1", "n2", "n3", "n4", "n5" };
-//nocut
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    0.00273409 ,    6.94849  ,    6.67571  , 0.269879 ,          0.,           0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.1
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    5.54628e-10 ,    -5.36291  ,    15.1349  , 1.79895 ,          0.,           0.,    0,    0,    0,    0,    0,    0 };
-
-//Small 0.2
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    4.25451e-07 ,    0.819223  ,    11.1245  , 1.07403 ,          0.,           0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.3
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    7.01988e-05 ,    5.95128  , 7.97695  , 0.509858 ,          0.,           0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.4
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    0.000206226 ,    6.90929  , 7.43628  , 0.41863 ,          0.,        0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.5
-double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    7.45698e-05 ,    5.58382  , 8.23892  , 0.568854  ,          0.,        0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.6 
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,    0.000104202,    5.57463 , 8.06913 , 0.529905 ,          0.,        0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.7
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0,   0.000974055,   7.82269, 6.69513, 0.282507,          0.,        0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.8
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00250855 ,  8.55617, 6.15986, 0.184522,          0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Small 0.9
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00958962, 9.66833, 5.38462, 0.0410067,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-
-//BS 0.1
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00114075, 7.55075, 6.65202, 0.264257,      0.,     0.,    0,    0,    0,    0,    0,    0 }; 
-//BS 0.2 
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00136515, 7.40596, 6.64155, 0.263757,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.3
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.0013835, 7.14189, 6.63795, 0.258118,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.4
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00137299, 6.90468, 6.63391, 0.25439,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.5
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.0013404, 6.70738, 6.62473, 0.247878,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.6
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00242683, 7.35391, 6.24088, 0.180679,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.7
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00130837, 6.62696 ,6.63116, 0.250922,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.8
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.0013002, 6.66595, 6.63101, 0.255273,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//BS 0.9 
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.000238429, 4.8378, 7.69455, 0.448912,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big  0.1
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00357398, 7.45105, 6.09161, 0.168244,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big 0.2
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00256478, 7.23299, 6.12934, 0.174765,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big 0.3
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00102548, 6.47588, 6.63504, 0.271229,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big 0.4
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.0017967, 7.35037, 6.17569, 0.189981,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//
-//Big 0.5
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00690348, 9.08245  , 5.21411, 0.0204269,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big 0.6
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.00112731, 7.2704 , 6.31862, 0.223461,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big 0.7
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.000521887, 6.6369, 6.7205, 0.298161,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//Big 0.8 
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 2.64177e-05, 3.50313, 8.48897, 0.607174,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-//double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 0.000122173, 5.68926, 7.28572, 0.396318,      0.,     0.,    0,    0,    0,    0,    0,    0 };
-
-
-
-
-
-
-
-
+double PAR_GUESSES[NPARS] = { 1E-3,    2445,    1.0,   1.0, 4.35374e-03, 7.46697e+00, 6.37033e+00,  2.14709e-01,          0.,           0.,    0,    0,    0,    0,    0,    0 };
 double PAR_MIN[NPARS]     = {    0,     0.0,    0.0,   0.0,        -1E4,       -9999,       -9999,        -9999,       -9999,        -9999, -100, -100, -100, -100, -100, -100 };
 double PAR_MAX[NPARS]     = {  1E3,     5E3,    2.0,   2.0,         1E4,        9999,        9999,         9999,        9999,         9999,  100,  100,  100,  100,  100,  100 };
 double PAR_ERR[NPARS]     = { 1E-3,  122.25,   0.02,  0.10,       1e-04,       1e-01,       1e-01,        1e-03,       1e-02,        1e-03,    1,    1,    1,    1,    1,    1 };
@@ -374,7 +309,7 @@ int main(int argc, char* argv[])
   SIGMASS = atof(argv[1]);
   string masspoint = argv[1];
 
-  string final_state = "qq";
+  string final_state = "gg";
   if(argc>2) final_state = argv[2];
   if(argc>3) NPES = atoi(argv[3]);
   int jobID = 0;
@@ -385,35 +320,22 @@ int main(int argc, char* argv[])
   //
   // (Change the code outside the User Sections only if you know what you are doing)
   //
+
   // input data file
- //INPUTFILES.push_back("Data_and_ResonanceShapes/histo_data_mjj_Run2015D_silverJSON_2445invpb_JEC_Summer15_25nsV6_clean.root");
- // INPUTFILES.push_back("Data_and_ResonanceShapes/QCD.root");
-// INPUTFILES.push_back("/uscms_data/d3/abat/Analyzer/CMSSW_7_4_4/src/CMSDIJET/DijetRootTreeAnalyzer/output_nocut/plots_data4T_Run2015D_Silverjson_2445pb-1_JEC_Summer15_25nsV6_withSF_nocut/histo_data_mjj_fromTree_nocut.root");
-INPUTFILES.push_back("/uscms_data/d3/abat/Analyzer/CMSSW_7_4_4/src/CMSDIJET/DijetRootTreeAnalyzer/output_Small/plots_data4T_Run2015D_Silverjson_2445pb-1_JEC_Summer15_25nsV6_withSF_golden_256630_258158_fromtree_Small_kFactor_1/histo_data_mjj_fromTree0.5.root"); 
-//INPUTFILES.push_back("/uscms_data/d3/abat/Analyzer/CMSSW_7_4_4/src/CMSDIJET/DijetRootTreeAnalyzer/output_BS/plots_data4T_Run2015D_Silverjson_2445pb-1_JEC_Summer15_25nsV6_withSF_golden_256630_258158_fromtree_BS_kFactor_1/histo_data_mjj_fromTree0.9.root");
-//INPUTFILES.push_back("/uscms_data/d3/abat/Analyzer/CMSSW_7_4_4/src/CMSDIJET/DijetRootTreeAnalyzer/output_Big/plots_data4T_Run2015D_Silverjson_2445pb-1_JEC_Summer15_25nsV6_withSF_golden_256630_258158_fromtree_BIG_kFactor_1/histo_data_mjj_fromTree0.9.root");
+  INPUTFILES.push_back("Data_and_ResonanceShapes/QCD.root");
 
-
-// INPUTFILES.push_back("histo_data_mjj_fromTree_nocut.root");  
-// data histogram name
-  string datahistname = "h_dat";
- //  string datahistname = "h_QCD_nocut";
-
- string filename = "Data_and_ResonanceShapes/ResonanceShapes_qq_13TeV_Phys14Spring15Mix.root";
-  if(final_state=="qg") filename = "Data_and_ResonanceShapes/ResonanceShapes_qg_13TeV_PU30_Spring15.root";
-  if(final_state=="gg") filename = "Data_and_ResonanceShapes/ResonanceShapes_gg_13TeV_PU30_Spring15.root";
-
+  // data histogram name
+  string datahistname = "h_QCD_Small_01";
 
   // input signal files with resonance shapes
-// string filename = "Data_and_ResonanceShapes/QQ.root";
- // if(final_state=="qg") filename = "Data_and_ResonanceShapes/QG.root";
- //if(final_state=="gg") filename = "Data_and_ResonanceShapes/GG.root";
-  // signal histogram na string histname = "h_" + final_state + "_" + masspoint;
-     string histname = "h_" + final_state + "_" + masspoint;
- //   string histname = "h_M"+ masspoint+"_Small_09";
-  //  string histname = "h_M"+ masspoint+"_Big_09";
-   //   string histname = "h_M"+ masspoint+"_bs_09";
-    // string histname = "h_M"+ masspoint+"_nocut";
+  string filename = "Data_and_ResonanceShapes/QQ.root";
+  if(final_state=="qg") filename = "QG.root";
+  if(final_state=="gg") filename = "GG.root";
+
+  // signal histogram name
+ // string histname = "h_" + final_state + "_" + masspoint;
+    string histname = "h_M" + masspoint + "_Small_01";
+  //
   // End of User Section 2
   //##################################################################################################################################
 
